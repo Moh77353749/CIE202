@@ -1,11 +1,6 @@
 #include "controller.h"
 #include "operations\opAddRect.h"
-#include "operations\opAddLine.h"
-#include "operations\opAddTri.h"
-#include "operations\opSave.h"
-#include "opSelect.h"
-#include "OpDelete.h"
-#include "Shapes/Graph.h"
+#include"opAddCirc.h"
 
 
 //Constructor
@@ -13,9 +8,6 @@ controller::controller()
 {
 	pGraph = new Graph;
 	pGUI = new GUI;	//Create GUI object
-	
-	
-
 }
 
 //==================================================================================//
@@ -26,10 +18,6 @@ operationType controller::GetUseroperation() const
 	//Ask the input to get the operation from the user.
 	return pGUI->GetUseroperation();		
 }
-
-
-
-
 ////////////////////////////////////////////////////////////////////////////////////
 //Creates an operation and executes it
 operation* controller::createOperation(operationType OpType)
@@ -44,24 +32,16 @@ operation* controller::createOperation(operationType OpType)
 			break;
 
 		case DRAW_LINE:
-			pOp = new opAddLine(this);///create AddLine operation here
+			///create AddLineoperation here
 
 			break;
-		case DRAW_TRI:
-			pOp = new opAddTri(this);///create Addtri operation here
+		case DRAW_CIRC:
+			pOp = new opAddCirc(this);
+			break;
 
-			break;
-		case SAVE:
-			pOp = new opSave(this, Fc); // do the save operation
-			break;
-			///create Exitoperation here
-		case SELECT:
-			pOp =  new opSelect(this);
-			break;
-		case DEL:
-			pOp = new opDelete(this);
-			break;
 		case EXIT:
+			///create Exitoperation here
+			
 			break;
 		
 		case STATUS:	//a click on the status bar ==> no operation
@@ -84,15 +64,12 @@ void controller::UpdateInterface() const
 //Return a pointer to the UI
 GUI *controller::GetUI() const
 {	return pGUI; }
-
-
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the Graph
 Graph* controller::getGraph() const
 {
 	return pGraph;
 }
-
 
 
 
