@@ -24,8 +24,8 @@ struct GfxInfo	//Graphical info common for all shapes (you may add more members)
 
 
 
-class shape;
-class GUI 
+
+class GUI
 {
 	enum GUI_MODE	//Graphical user interface mode
 	{
@@ -37,12 +37,10 @@ class GUI
 	{
 		//Note: Icons are ordered here as they appear in menu
 		//If you want to change the menu icons order, change the order here
-		ICON_LINE,		//Line icon in menu
-		ICON_TRI,		//Triangel Icon
 		ICON_RECT,		//Recangle icon in menu
+		ICON_SQU,       //Square icon in menu
 		ICON_CIRC,		//Circle icon in menu
-		ICON_SAVE,
-		ICON_DELETE,
+
 		//TODO: Add more icons names here
 
 		ICON_EXIT,		//Exit icon
@@ -79,7 +77,6 @@ class GUI
 	color BkGrndColor;		//Background color
 	color StatusBarColor;	//Status bar color
 	int PenWidth;			//width of the pen that draws shapes
-	bool selec;
 
 	/// Add more members if needed
 
@@ -105,20 +102,18 @@ public:
 	void ClearStatusBar() const;	//Clears the status bar
 	void ClearDrawArea() const;	//Clears the drawing area
 
+
 	// -- shapes Drawing functions
-	void Draw_Rect(Point P1, Point P2, GfxInfo RectGfxInfo) const;  //Draw a rectangle
-	void Draw_Line(Point P1, Point P2, GfxInfo LineGfxInfo) const; //Draw Line
-	void Draw_Tri(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo) const; //Draw Rectangle
-	
+	void DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo) const;  //Draw a rectangle
+	void DrawSqu(Point P1, Point P2, GfxInfo RectGfxInfo) const;  //Draw a rectangle
+
 	///Make similar functions for drawing all other shapes.
 
 	void PrintMessage(string msg) const;	//Print a message on Status bar
-
+	color setCrntFillColor(color & x);
 	color getCrntDrawColor() const;	//get current drwawing color
 	color getCrntFillColor() const;	//get current filling color
 	int getCrntPenWidth() const;		//get current pen width
-	void SetSelected(bool s);
-	
 	~GUI();
 };
 

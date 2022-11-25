@@ -11,12 +11,12 @@ GUI::GUI()
 	wy = 5;
 
 
-	StatusBarHeight = 50;
+	StatusBarHeight = 60;
 	ToolBarHeight = 50;
-	MenuIconWidth = 80;
+	MenuIconWidth = 60;
 
 	DrawColor = BLUE;	//default Drawing color
-	FillColor = GREEN;	//default Filling color
+	FillColor = RED ;	//default Filling color
 	MsgColor = BLACK;		//Messages color
 	BkGrndColor = WHITE;	//Background color
 	HighlightColor = MAGENTA;	//This color should NOT be used to draw shapes. use if for highlight only
@@ -87,12 +87,9 @@ operationType GUI::GetUseroperation() const
 
 			switch (ClickedIconOrder)
 			{
-			case ICON_LINE: return DRAW_LINE;
-			case ICON_TRI:  return DRAW_TRI;
 			case ICON_RECT: return DRAW_RECT;
+			case ICON_SQU: return  DRAW_Squ;
 			case ICON_CIRC: return DRAW_CIRC;
-			case ICON_SAVE: return SAVE;
-			case[ICON_DELETE]: return DEL;
 			case ICON_EXIT: return EXIT;
 
 			default: return EMPTY;	//A click on empty place in desgin toolbar
@@ -160,12 +157,9 @@ void GUI::CreateDrawToolBar()
 	//To control the order of these images in the menu, 
 	//reoder them in UI_Info.h ==> enum DrawMenuIcon
 	string MenuIconImages[DRAW_ICON_COUNT];
-	MenuIconImages[ICON_LINE] = "images\\MenuIcons\\Menu_Line.jpg";
-	MenuIconImages[ICON_TRI]  = "images\\MenuIcons\\Menu_Tri.jpg";
 	MenuIconImages[ICON_RECT] = "images\\MenuIcons\\Menu_Rect.jpg";
+	MenuIconImages[ICON_SQU] = "images\\MenuIcons\\Menu_Squ.jpg";
 	MenuIconImages[ICON_CIRC] = "images\\MenuIcons\\Menu_Circ.jpg";
-	MenuIconImages[ICON_SAVE] = "images\\MenuIcons\\Menu_Save.jpg";
-	MenuIconImages[ICON_DELETE] = "images\\MenuIcons\\Menu_Save.jpg";
 	MenuIconImages[ICON_EXIT] = "images\\MenuIcons\\Menu_Exit.jpg";
 
 	//TODO: Prepare images for each menu icon and add it to the list
@@ -197,7 +191,7 @@ void GUI::ClearDrawArea() const
 	pWind->DrawRectangle(0, ToolBarHeight, width, height - StatusBarHeight);
 
 }
-//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 
 void GUI::PrintMessage(string msg) const	//Prints a message on status bar
 {
@@ -207,6 +201,10 @@ void GUI::PrintMessage(string msg) const	//Prints a message on status bar
 	pWind->SetFont(24, BOLD, BY_NAME, "Arial");
 	pWind->DrawString(10, height - (int)(0.75 * StatusBarHeight), msg);
 }
+color GUI::setCrntFillColor(color & x)
+{
+	return color();
+}
 //////////////////////////////////////////////////////////////////////////////////////////
 
 color GUI::getCrntDrawColor() const	//get current drwawing color
@@ -215,7 +213,7 @@ color GUI::getCrntDrawColor() const	//get current drwawing color
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
-color GUI::getCrntFillColor() const	//get current filling color
+color GUI::getCrntFillColor() const 	//get current filling color
 {
 	return FillColor;
 }
@@ -226,24 +224,22 @@ int GUI::getCrntPenWidth() const		//get current pen width
 	return PenWidth;
 }
 
-void GUI::SetSelected(bool s)
-{
-	selec = s;
-}
-
 //======================================================================================//
 //								shapes Drawing Functions								//
 //======================================================================================//
 
-void GUI::Draw_Rect(Point P1, Point P2, GfxInfo RectGfxInfo) const
+void GUI::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo) const
 {
-	color DrawingClr;
+	color DrawingClr, FillClr;
 	if (RectGfxInfo.isSelected)	//shape is selected
 		DrawingClr = HighlightColor; //shape should be drawn highlighted
 	else
 		DrawingClr = RectGfxInfo.DrawClr;
 
+
 	pWind->SetPen(DrawingClr, RectGfxInfo.BorderWdth);	//Set Drawing color & width
+
+	pWind->SetPen(FillClr, RectGfxInfo.isSelected);
 
 	drawstyle style;
 	if (RectGfxInfo.isFilled)
@@ -257,49 +253,29 @@ void GUI::Draw_Rect(Point P1, Point P2, GfxInfo RectGfxInfo) const
 	pWind->DrawRectangle(P1.x, P1.y, P2.x, P2.y, style);
 
 }
-
-void GUI::Draw_Line(Point P1, Point P2, GfxInfo LineGfxInfo) const
+void GUI::DrawSqu(Point P1, Point P2, GfxInfo SquGfxInfo) const
 {
-	color DrawingClr;
-	if (LineGfxInfo.isSelected)	//shape is selected
+	color DrawingClr, FillClr;
+	if (SquGfxInfo.isSelected)	//shape is selected
 		DrawingClr = HighlightColor; //shape should be drawn highlighted
 	else
-		DrawingClr = LineGfxInfo.DrawClr;
+		DrawingClr = SquGfxInfo.DrawClr;
 
-	pWind->SetPen(DrawingClr, LineGfxInfo.BorderWdth);	//Set Drawing color & width
+
+	pWind->SetPen(DrawingClr, SquGfxInfo.BorderWdth);	//Set Drawing color & width
+
+	pWind->SetPen(FillClr, SquGfxInfo.isSelected);
 
 	drawstyle style;
-	if (LineGfxInfo.isFilled)
+	if (SquGfxInfo.isFilled)
 	{
 		style = FILLED;
-		pWind->SetBrush(LineGfxInfo.FillClr);
+		pWind->SetBrush(SquGfxInfo.FillClr);
 	}
 	else
 		style = FRAME;
 
-	pWind->DrawLine(P1.x, P1.y, P2.x, P2.y, style);
-
-}
-void GUI::Draw_Tri(Point P1, Point P2,Point P3, GfxInfo TriGfxInfo) const
-{
-	color DrawingClr;
-	if (TriGfxInfo.isSelected)	//shape is selected
-		DrawingClr = HighlightColor; //shape should be drawn highlighted
-	else
-		DrawingClr = TriGfxInfo.DrawClr;
-
-	pWind->SetPen(DrawingClr, TriGfxInfo.BorderWdth);	//Set Drawing color & width
-
-	drawstyle style;
-	if (TriGfxInfo.isFilled)
-	{
-		style = FILLED;
-		pWind->SetBrush(TriGfxInfo.FillClr);
-	}
-	else
-		style = FRAME;
-
-	pWind->DrawTriangle(P1.x, P1.y, P2.x, P2.y, P3.x, P3.y, style);
+	pWind->DrawRectangle(P1.x, P1.y, P2.x, P2.y, style);
 
 }
 
