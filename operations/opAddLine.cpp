@@ -1,22 +1,24 @@
-#include "opAddRect.h"
-#include "..\shapes\Rect.h"
-#include "..\controller.h"
-#include "..\GUI\GUI.h"
+#include "opAddLine.h"
 
-opAddRect::opAddRect(controller * pCont):operation(pCont)
+#include "..\controller.h"
+
+#include "..\GUI\GUI.h"
+#include "..\shapes\Line.h"
+
+opAddLine::opAddLine(controller* pCont) : operation(pCont)
 {}
-opAddRect::~opAddRect()
-{} 
+opAddLine::~opAddLine()
+{}
 
 //Execute the operation
-void opAddRect::Execute() 
+void opAddLine::Execute()
 {
 	Point P1, P2;
 
 	//Get a Pointer to the Input / Output Interfaces
 	GUI* pUI = pControl->GetUI();
 
-	pUI->PrintMessage("New Rectangle: Click at first corner");
+	pUI->PrintMessage("New Line: Click at first corner");
 	//Read 1st corner and store in point P1
 	pUI->GetPointClicked(P1.x, P1.y);
 
@@ -27,26 +29,27 @@ void opAddRect::Execute()
 	pUI->GetPointClicked(P2.x, P2.y);
 	pUI->ClearStatusBar();
 
-	//Preapre all rectangle parameters
-	GfxInfo RectGfxInfo;
-	
+	//Preapre all Line parameters
+	GfxInfo LineGfxInfo;
+
 	//get drawing, filling colors and pen width from the interface
-	RectGfxInfo.DrawClr = pUI->getCrntDrawColor();
-	RectGfxInfo.FillClr = pUI->getCrntFillColor();
-	RectGfxInfo.BorderWdth = pUI->getCrntPenWidth();
+	LineGfxInfo.DrawClr = pUI->getCrntDrawColor();
+	LineGfxInfo.FillClr = pUI->getCrntFillColor();
+	LineGfxInfo.BorderWdth = pUI->getCrntPenWidth();
 
 
-	RectGfxInfo.isFilled = false;	//default is not filled
-	RectGfxInfo.isSelected = false;	//defualt is not selected
+	LineGfxInfo.isFilled = false;	//default is not filled
+	LineGfxInfo.isSelected = false;	//defualt is not selected
 
 
-	//Create a rectangle with the above parameters
-	Rect *R=new Rect(P1, P2, RectGfxInfo);
+	//Create a Line with the above parameters
+	Line* L = new Line(P1, P2, LineGfxInfo);
 
 	//Get a pointer to the graph
 	Graph* pGr = pControl->getGraph();
 
 	//Add the rectangle to the list of shapes
-	pGr->Addshape(R);
+	pGr->Addshape(L);
 
 }
+

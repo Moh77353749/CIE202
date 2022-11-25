@@ -1,17 +1,20 @@
-#include "opAddRect.h"
-#include "..\shapes\Rect.h"
-#include "..\controller.h"
-#include "..\GUI\GUI.h"
+#include "opAddTri.h"
 
-opAddRect::opAddRect(controller * pCont):operation(pCont)
+#include "..\controller.h"
+
+#include "..\GUI\GUI.h"
+#include "..\shapes\Tri.h"
+
+
+opAddTri::opAddTri(controller* pCont) :operation(pCont)
 {}
-opAddRect::~opAddRect()
-{} 
+opAddTri::~opAddTri()
+{}
 
 //Execute the operation
-void opAddRect::Execute() 
+void opAddTri::Execute()
 {
-	Point P1, P2;
+	Point P1, P2, P3;
 
 	//Get a Pointer to the Input / Output Interfaces
 	GUI* pUI = pControl->GetUI();
@@ -25,28 +28,34 @@ void opAddRect::Execute()
 	pUI->PrintMessage(msg);
 	//Read 2nd corner and store in point P2
 	pUI->GetPointClicked(P2.x, P2.y);
+	string msg2 = "First corner is at (" + to_string(P2.x) + ", " + to_string(P2.y) + " )";
+	msg2 += " ... Click at Third corner";
+	pUI->PrintMessage(msg2);
+	//Read 3nd corner and store in point P2
+	pUI->GetPointClicked(P3.x, P3.y);
+
 	pUI->ClearStatusBar();
 
 	//Preapre all rectangle parameters
-	GfxInfo RectGfxInfo;
-	
+	GfxInfo TriGfxInfo;
+
 	//get drawing, filling colors and pen width from the interface
-	RectGfxInfo.DrawClr = pUI->getCrntDrawColor();
-	RectGfxInfo.FillClr = pUI->getCrntFillColor();
-	RectGfxInfo.BorderWdth = pUI->getCrntPenWidth();
+	TriGfxInfo.DrawClr = pUI->getCrntDrawColor();
+	TriGfxInfo.FillClr = pUI->getCrntFillColor();
+	TriGfxInfo.BorderWdth = pUI->getCrntPenWidth();
 
 
-	RectGfxInfo.isFilled = false;	//default is not filled
-	RectGfxInfo.isSelected = false;	//defualt is not selected
+	TriGfxInfo.isFilled = false;	//default is not filled
+	TriGfxInfo.isSelected = false;	//defualt is not selected
 
 
 	//Create a rectangle with the above parameters
-	Rect *R=new Rect(P1, P2, RectGfxInfo);
+	Tri* T = new Tri(P1, P2, P3,TriGfxInfo);
 
 	//Get a pointer to the graph
 	Graph* pGr = pControl->getGraph();
 
 	//Add the rectangle to the list of shapes
-	pGr->Addshape(R);
+	pGr->Addshape(T);
 
 }

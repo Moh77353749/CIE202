@@ -7,7 +7,6 @@ This file was last modified on 05.16.1999
 #include <iostream>
 #include <cstdio>
 #include <cmath>
-
 #include "CMUgraphics.h"
 #include "error.h"
 #include "windowinput.h"
