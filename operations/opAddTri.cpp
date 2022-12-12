@@ -1,7 +1,5 @@
 #include "opAddTri.h"
-
 #include "..\controller.h"
-
 #include "..\GUI\GUI.h"
 #include "..\shapes\Tri.h"
 

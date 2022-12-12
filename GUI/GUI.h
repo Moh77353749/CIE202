@@ -40,7 +40,8 @@ class GUI
 		ICON_LINE,		//Line icon in menu
 		ICON_TRI,		//Triangel Icon
 		ICON_RECT,		//Recangle icon in menu
-		ICON_CIRC,		//Circle icon in menu
+		ICON_CIRC,	//Circle icon in menu
+		ICON_SEL, 
 		ICON_SAVE,
 		ICON_DELETE,
 		//TODO: Add more icons names here
@@ -117,7 +118,7 @@ public:
 	color getCrntDrawColor() const;	//get current drwawing color
 	color getCrntFillColor() const;	//get current filling color
 	int getCrntPenWidth() const;		//get current pen width
-	void SetSelected(bool s);
+	//void SetSelected(bool s);
 	
 	~GUI();
 };

@@ -13,6 +13,8 @@ protected:
 	/// Add more parameters if needed.
 
 public:
+
+	virtual bool checkInside(Point p) = 0;
 	shape(GfxInfo shapeGfxInfo);
 	virtual ~shape() {}
 	void SetSelected(bool s);	//select/unselect the shape

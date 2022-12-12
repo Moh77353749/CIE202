@@ -1,17 +1,13 @@
 #pragma once
+#include "..\controller.h"
+#include "..\operations\operation.h"
+#include "..\Shapes\Graph.h"
+#include "..\GUI\GUI.h"
 
-#include "operation.h"
-
-class OpDelete : public operation
+class opDelete : public operation
 {
-private:
-	Point P1, P2;
-	GfxInfo RectGfxInfo;
 public:
-	OpDelete(controller* pCont);
-	virtual ~OpDelete();
-
-	//Add rectangle to the controller
+	opDelete(controller* pCont);
 	virtual void Execute();
 };
 

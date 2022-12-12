@@ -3,8 +3,8 @@
 #include "operations\opAddLine.h"
 #include "operations\opAddTri.h"
 #include "operations\opSave.h"
-#include "opSelect.h"
-#include "OpDelete.h"
+#include "operations\opSel.h"
+#include "operations/opDelete.h"
 #include "Shapes/Graph.h"
 
 
@@ -51,16 +51,20 @@ operation* controller::createOperation(operationType OpType)
 			pOp = new opAddTri(this);///create Addtri operation here
 
 			break;
-		case SAVE:
-			pOp = new opSave(this, Fc); // do the save operation
-			break;
-			///create Exitoperation here
+
 		case SELECT:
-			pOp =  new opSelect(this);
+			pOp =  new opSel(this);
 			break;
+
 		case DEL:
 			pOp = new opDelete(this);
 			break;
+			/*
+				case SAVE:
+			pOp = new opSave(this, Fc); // do the save operation
+			break;
+		*/
+			
 		case EXIT:
 			break;
 		

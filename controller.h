@@ -30,7 +30,7 @@ public:
 	void Run();
 	
 	Graph* getGraph() const;
-	void DeleteObj();
+	//void DeleteObj();
 	// -- Interface Management Functions
 	GUI* GetUI() const; //Return pointer to the UI
 
