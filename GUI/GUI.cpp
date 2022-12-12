@@ -90,6 +90,12 @@ operationType GUI::GetUseroperation() const
 			case ICON_RECT: return DRAW_RECT;
 			case ICON_SQU: return  DRAW_Squ;
 			case ICON_CIRC: return DRAW_CIRC;
+<<<<<<< HEAD
+=======
+			case ICON_SEL:  return SELECT;
+			case ICON_SAVE: return SAVE;
+			case ICON_DELETE: return DEL;
+>>>>>>> Ali
 			case ICON_EXIT: return EXIT;
 
 			default: return EMPTY;	//A click on empty place in desgin toolbar
@@ -160,6 +166,12 @@ void GUI::CreateDrawToolBar()
 	MenuIconImages[ICON_RECT] = "images\\MenuIcons\\Menu_Rect.jpg";
 	MenuIconImages[ICON_SQU] = "images\\MenuIcons\\Menu_Squ.jpg";
 	MenuIconImages[ICON_CIRC] = "images\\MenuIcons\\Menu_Circ.jpg";
+<<<<<<< HEAD
+=======
+	MenuIconImages[ICON_SEL] = "images\\MenuIcons\\Menu_Sel.jpg";
+	MenuIconImages[ICON_DELETE] = "images\\MenuIcons\\Menu_Del.jpg";
+	MenuIconImages[ICON_SAVE] = "images\\MenuIcons\\Menu_Save.jpg";
+>>>>>>> Ali
 	MenuIconImages[ICON_EXIT] = "images\\MenuIcons\\Menu_Exit.jpg";
 
 	//TODO: Prepare images for each menu icon and add it to the list
@@ -224,6 +236,10 @@ int GUI::getCrntPenWidth() const		//get current pen width
 	return PenWidth;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> Ali
 //======================================================================================//
 //								shapes Drawing Functions								//
 //======================================================================================//
