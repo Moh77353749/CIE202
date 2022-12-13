@@ -31,11 +31,8 @@ void Graph::Addshape(shape* pShp)
 void Graph::Draw(GUI* pUI) const
 {
 	pUI->ClearDrawArea();
-	cout << "cleared";
-	cout << shapesList.size() << endl;
 	for (auto shapePointer : shapesList) {
 		shapePointer->Draw(pUI);
-		cout << "draw" << endl;
 	}
 }
 
@@ -59,15 +56,10 @@ shape* Graph::Getshape(Point p)
 void Graph::Delshape()
 {
 	for (int i = 0; i < shapesList.size(); i++) {
-
 		if ((shapesList[i]->IsSelected()) == TRUE) {
 			shapesList.erase(shapesList.begin()+i);
-			break;
-		}	
+		}
 	}
-	cout << "after erase " << shapesList.size() <<endl;
-	cont->UpdateInterface();
-	
 }
 
 
