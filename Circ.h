@@ -1,5 +1,7 @@
 #pragma once
 #include"Shapes/Shape.h"
+#include "GUI/GUI.h"
+
 
 class Circ :public shape
 {

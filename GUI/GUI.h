@@ -6,6 +6,7 @@
 #include "..\Defs.h"
 
 #include <string>
+#include <string>
 using namespace std;
 
 struct Point	//To be used for shapes points
@@ -38,16 +39,15 @@ class GUI
 		//Note: Icons are ordered here as they appear in menu
 		//If you want to change the menu icons order, change the order here
 		ICON_RECT,		//Recangle icon in menu
-<<<<<<< HEAD
+
 		ICON_SQU,       //Square icon in menu
 		ICON_CIRC,		//Circle icon in menu
 
-=======
+
 		ICON_CIRC,	//Circle icon in menu
 		ICON_SEL, 
 		ICON_SAVE,
 		ICON_DELETE,
->>>>>>> Ali
 		//TODO: Add more icons names here
 
 		ICON_EXIT,		//Exit icon
@@ -121,11 +121,7 @@ public:
 	color getCrntDrawColor() const;	//get current drwawing color
 	color getCrntFillColor() const;	//get current filling color
 	int getCrntPenWidth() const;		//get current pen width
-<<<<<<< HEAD
-=======
-	//void SetSelected(bool s);
-	
->>>>>>> Ali
+
 	~GUI();
 };
 
