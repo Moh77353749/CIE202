@@ -48,7 +48,7 @@ void opAddTri::Execute()
 
 
 	//Create a rectangle with the above parameters
-	Tri* T = new Tri(P1, P2, P3,TriGfxInfo);
+	Tri* T = new Tri(P1, P2, P3, TriGfxInfo);
 
 	//Get a pointer to the graph
 	Graph* pGr = pControl->getGraph();

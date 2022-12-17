@@ -5,8 +5,7 @@
 #include "../GUI/GUI.h"
 using namespace std;
 Graph::Graph()
-{
-	Fc = 0;
+{	
 }
 
 Graph::~Graph()
@@ -31,6 +30,8 @@ void Graph::Addshape(shape* pShp)
 void Graph::Draw(GUI* pUI) const
 {
 	pUI->ClearDrawArea();
+	pUI->drawcolor();
+
 	for (auto shapePointer : shapesList) {
 		shapePointer->Draw(pUI);
 	}
@@ -45,11 +46,22 @@ shape* Graph::Getshape(Point p)
 {
 	for (int i = 0; i < shapesList.size(); i++) {
 		if ((shapesList[i]->checkInside(p)) == TRUE) {
-			shapesList[i]->SetSelected(1);
-			selectedShape = shapesList[i];
-			return shapesList[i];
+			if (shapesList[i]->IsSelected() == FALSE)
+			{
+				shapesList[i]->SetSelected(1);
+				selectedShape = shapesList[i];
+				return shapesList[i];
+			}
+			else
+			{
+				shapesList[i]->SetSelected(0);
+			}
 		}
-		
+		else
+		{
+			shapesList[i]->SetSelected(0);
+		}
+
 	}
 }
 
@@ -59,6 +71,48 @@ void Graph::Delshape()
 		if ((shapesList[i]->IsSelected()) == TRUE) {
 			shapesList.erase(shapesList.begin()+i);
 		}
+	}
+}
+
+void Graph::fill(color c)
+{
+	for (int i = 0; i < shapesList.size(); i++) {
+		if ((shapesList[i]->IsSelected() ==TRUE )) {
+			shapesList[i]->ChngFillClr(c);
+		}
+	}
+}
+
+void Graph::bordc(color c)
+{
+	for (int i = 0; i < shapesList.size(); i++) {
+		if ((shapesList[i]->IsSelected() == TRUE)) {
+			shapesList[i]->ChngDrawClr(c);
+		}
+	}
+}
+
+void Graph::bordw(int xx)
+{
+	for (int i = 0; i < shapesList.size(); i++) {
+		if ((shapesList[i]->IsSelected() == TRUE)) {
+			shapesList[i]->ChngBorderWidth(xx);
+		}
+	}
+}
+
+
+void Graph::Save_shapes(ofstream& outfile)
+{
+	for (int i = 0; i < shapesList.size(); i++) {
+		shapesList[i]->Save(outfile);
+	}
+}
+
+void Graph::load(ifstream& inputfile)
+{
+	for (int i = 0; i < shapesList.size(); i++) {
+		shapesList[i]->Load(inputfile);
 	}
 }
 

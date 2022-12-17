@@ -1,11 +1,12 @@
 #include "GUI.h"
+#include "..\controller.h"
 
 GUI::GUI()
 {
 	//Initialize user interface parameters
 	InterfaceMode = MODE_DRAW;
 
-	width = 1300;
+	width = 1600;
 	height = 700;
 	wx = 5;
 	wy = 5;
@@ -30,8 +31,11 @@ GUI::GUI()
 	pWind->ChangeTitle("- - - - - - - - - - PAINT ^ ^ PLAY - - - - - - - - - -");
 
 	CreateDrawToolBar();
+	drawcolor();
 	CreateStatusBar();
 }
+
+
 
 
 
@@ -42,6 +46,12 @@ GUI::GUI()
 void GUI::GetPointClicked(int& x, int& y) const
 {
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
+
+}
+color GUI::GetcolorClicked(int x, int y) const
+{
+		//Wait for mouse click
+	return pWind->GetColor(x, y);
 }
 
 string GUI::GetSrting() const
@@ -91,11 +101,18 @@ operationType GUI::GetUseroperation() const
 			case ICON_TRI:  return DRAW_TRI;
 			case ICON_RECT: return DRAW_RECT;
 			case ICON_CIRC: return DRAW_CIRC;
+			case ICON_SQU: return  DRAW_Squ;
+			case ICON_OVAL: return DRAW_OVAL;
+			case ICON_PLAY: return TO_PLAY;
+			case ICON_LOAD:  return LOAD;
 			case ICON_SEL:  return SELECT;
+			case ICON_CHNG_PEN_WID: return CHNG_PEN_WID;
+			case ICON_CHNG_PEN_CLR: return CHNG_DRAW_CLR;
 			case ICON_SAVE: return SAVE;
+			case ICON_brod: return actionch;
 			case ICON_DELETE: return DEL;
 			case ICON_EXIT: return EXIT;
-
+			case ICON_CHNG_FILL_CLR: return CHNG_FILL_CLR;
 			default: return EMPTY;	//A click on empty place in desgin toolbar
 			}
 		}
@@ -141,7 +158,19 @@ void GUI::CreateStatusBar() const
 	pWind->SetBrush(StatusBarColor);
 	pWind->DrawRectangle(0, height - StatusBarHeight, width, height);
 }
+
+void GUI::ClearToolBar() const
+{
+	pWind->SetPen(DrawColor, 1);
+	pWind->SetBrush(DrawColor);
+	pWind->DrawRectangle(0, 0, width, ToolBarHeight);
+}
 //////////////////////////////////////////////////////////////////////////////////////////
+void GUI::drawcolor()
+{
+	pWind->DrawImage("images\\MenuIcons\\Colours.jpg", 1350, 50, 1500, 600);
+
+}
 void GUI::ClearStatusBar() const
 {
 	//Clear Status bar by drawing a filled white rectangle
@@ -161,20 +190,26 @@ void GUI::CreateDrawToolBar()
 	//To control the order of these images in the menu, 
 	//reoder them in UI_Info.h ==> enum DrawMenuIcon
 	string MenuIconImages[DRAW_ICON_COUNT];
-	MenuIconImages[ICON_LINE] = "images\\MenuIcons\\Menu_Line.jpg";
-	MenuIconImages[ICON_TRI]  = "images\\MenuIcons\\Menu_Tri.jpg";
-	MenuIconImages[ICON_RECT] = "images\\MenuIcons\\Menu_Rect.jpg";
-	MenuIconImages[ICON_CIRC] = "images\\MenuIcons\\Menu_Circ.jpg";
-	MenuIconImages[ICON_SEL] = "images\\MenuIcons\\Menu_Sel.jpg";
-	MenuIconImages[ICON_DELETE] = "images\\MenuIcons\\Menu_Del.jpg";
-	MenuIconImages[ICON_SAVE] = "images\\MenuIcons\\Menu_Save.jpg";
-	MenuIconImages[ICON_EXIT] = "images\\MenuIcons\\Menu_Exit.jpg";
-
-	//TODO: Prepare images for each menu icon and add it to the list
-
+	MenuIconImages[ICON_LINE] = "images\\MenuIcons\\Menu_Line.JPEG";
+	MenuIconImages[ICON_TRI]  = "images\\MenuIcons\\Menu_Tri.JPEG";
+	MenuIconImages[ICON_RECT] = "images\\MenuIcons\\Menu_Rect.JPEG";
+	MenuIconImages[ICON_SQU] = "images\\MenuIcons\\Menu_Squ.jpg";
+	MenuIconImages[ICON_CIRC] = "images\\MenuIcons\\Menu_Circ.JPEG";
+	MenuIconImages[ICON_SEL]  = "images\\MenuIcons\\Menu_Sel.JPEG";
+	MenuIconImages[ICON_DELETE] = "images\\MenuIcons\\Menu_Del.JPEG";
+	MenuIconImages[ICON_brod] = "images\\MenuIcons\\pen.JPG";
+	MenuIconImages[ICON_LOAD] = "images\\MenuIcons\\Menu_Download.JPG";
+	MenuIconImages[ICON_SAVE] = "images\\MenuIcons\\Menu_Save.JPEG";
+	MenuIconImages[ICON_EXIT] = "images\\MenuIcons\\Menu_Exit.JPEG";
+	MenuIconImages[ICON_OVAL] = "images\\MenuIcons\\Menu_OVAL.jpg";
+	MenuIconImages[ICON_PLAY] = "images\\MenuIcons\\Menu_Play.jpg";
+	MenuIconImages[ICON_CHNG_PEN_WID] = "images\\MenuIcons\\Menu_CHNG_PEN_WID.JPEG";
+	MenuIconImages[ICON_CHNG_PEN_CLR] = "images\\MenuIcons\\Menu_CHNG_PEN_CLR.JPEG";
+	MenuIconImages[ICON_CHNG_FILL_CLR] = "images\\MenuIcons\\Menu_CHNG_FILL_CLR.JPEG";
 	//Draw menu icon one image at a time
 	for (int i = 0; i < DRAW_ICON_COUNT; i++)
 		pWind->DrawImage(MenuIconImages[i], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
+	pWind->DrawImage("images\\MenuIcons\\Colours.jpg", 1350, 50, 1500, 600);
 
 
 
@@ -185,9 +220,21 @@ void GUI::CreateDrawToolBar()
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
+
 void GUI::CreatePlayToolBar() 
 {
 	InterfaceMode = MODE_PLAY;
+
+	string MenuIconImages[PLAY_ICON_COUNT];
+	MenuIconImages[ICON_HIDE] = "images\\MenuIcons\\Play_hide.jpg";
+
+
+	for (int i = 0; i < DRAW_ICON_COUNT; i++)
+		pWind->DrawImage(MenuIconImages[i], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
+
+	//Draw a line under the toolbar
+	pWind->SetPen(RED, 3);
+	pWind->DrawLine(0, ToolBarHeight, width, ToolBarHeight);
 	///TODO: write code to create Play mode menu
 }
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -196,10 +243,20 @@ void GUI::ClearDrawArea() const
 {
 	pWind->SetPen(BkGrndColor, 1);
 	pWind->SetBrush(BkGrndColor);
-	pWind->DrawRectangle(0, ToolBarHeight, width, height - StatusBarHeight);
+	pWind->DrawRectangle(0, ToolBarHeight, width, height - StatusBarHeight - 3);
+	
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////
+
+/*
+void GUI::Draw_Image( string name, Point P, int W, int H)
+{
+
+	pWind->DrawImage(name, P.x, P.y, W, H);
+}
+*/
+
 
 void GUI::PrintMessage(string msg) const	//Prints a message on status bar
 {
@@ -211,15 +268,64 @@ void GUI::PrintMessage(string msg) const	//Prints a message on status bar
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
+void GUI::setCrntDrawColor(color BLUE)
+{
+	DrawColor = BLUE;
+
+}
+
+void GUI::setCrntPenWidth(int width)
+{
+	
+	PenWidth = width;
+	
+}
+
 color GUI::getCrntDrawColor() const	//get current drwawing color
 {
 	return DrawColor;
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
+//Return a pointer to the output
+GUI* controller::GetOutput() const
+{
+	return pUI;
+}
+
+
 color GUI::getCrntFillColor() const	//get current filling color
 {
 	return FillColor;
+}
+void GUI::setCrntFillColor(color c)
+{
+	FillColor = c;
+
+}
+//int GUI::ChngBorderWidth() const	//get current filling color
+//{
+//	return PenWidth;
+//}
+//void GUI::ChngBorderWidth(int xx)
+//{
+//	
+//
+//}
+
+void GUI::ChngBorderWidth(int xx)
+{
+	PenWidth = xx;
+}
+
+color GUI::ChngDrawClr() const	//get current filling color
+{
+	return DrawColor;
+}
+void GUI::setChngDrawClr(color c)
+{
+	DrawColor = c;
+
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -228,6 +334,11 @@ int GUI::getCrntPenWidth() const		//get current pen width
 	return PenWidth;
 }
 
+string GUI::ReadFileName(string msg)       //read file name to save or load
+{
+	PrintMessage(msg);
+	return GetSrting();
+}
 
 //======================================================================================//
 //								shapes Drawing Functions								//
@@ -301,6 +412,78 @@ void GUI::Draw_Tri(Point P1, Point P2,Point P3, GfxInfo TriGfxInfo) const
 
 }
 
+void GUI::DrawSqu(Point P1, Point P2, GfxInfo SquGfxInfo) const
+{
+	color DrawingClr, FillClr;
+	if (SquGfxInfo.isSelected)	//shape is selected
+		DrawingClr = HighlightColor; //shape should be drawn highlighted
+	else
+		DrawingClr = SquGfxInfo.DrawClr;
+
+
+	pWind->SetPen(DrawingClr, SquGfxInfo.BorderWdth);	//Set Drawing color & width
+
+	pWind->SetPen(FillClr, SquGfxInfo.isSelected);
+
+	drawstyle style;
+	if (SquGfxInfo.isFilled)
+	{
+		style = FILLED;
+		pWind->SetBrush(SquGfxInfo.FillClr);
+	}
+	else
+		style = FRAME;
+
+	pWind->DrawRectangle(P1.x, P1.y, P2.x, P2.y, style);
+
+}
+
+
+void GUI::Draw_Circ(Point P1, Point P2, GfxInfo CircGfxInfo) const
+{
+	color DrawingClr;
+	if (CircGfxInfo.isSelected)	//shape is selected
+		DrawingClr = HighlightColor; //shape should be drawn highlighted
+	else
+		DrawingClr = CircGfxInfo.DrawClr;
+
+	pWind->SetPen(DrawingClr, CircGfxInfo.BorderWdth);	//Set Drawing color & width
+
+	drawstyle style;
+	if (CircGfxInfo.isFilled)
+	{
+		style = FILLED;
+		pWind->SetBrush(CircGfxInfo.FillClr);
+	}
+	else
+		style = FRAME;
+
+	pWind->DrawCircle(P1.x, P1.y, pow(pow((P2.x - P1.x), 2) + pow((P2.y - P1.y), 2), 0.5), style);
+
+}
+
+void GUI::DrawOval(Point focal1, Point focal2, GfxInfo OvGfxInfo) const
+{
+	color DrawingClr;
+	if (OvGfxInfo.isSelected)	//shape is selected
+		DrawingClr = HighlightColor; //shape should be drawn highlighted
+	else
+		DrawingClr = OvGfxInfo.DrawClr;
+
+	pWind->SetPen(DrawingClr, OvGfxInfo.BorderWdth);	//Set Drawing color & width
+
+	drawstyle style;
+	if (OvGfxInfo.isFilled)
+	{
+		style = FILLED;
+		pWind->SetBrush(OvGfxInfo.FillClr);
+	}
+	else
+		style = FRAME;
+
+	pWind->DrawEllipse(focal1.x, focal1.y, focal2.x, focal2.y, style);
+
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////
 GUI::~GUI()

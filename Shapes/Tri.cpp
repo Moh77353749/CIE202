@@ -5,6 +5,7 @@ Tri::Tri(Point P1, Point P2,Point P3, GfxInfo shapeGfxInfo) : shape(shapeGfxInfo
 	Corner1 = P1;
 	Corner2 = P2;
 	Corner3 = P3;
+	SetID(2);
 }
 
 bool Tri::checkInside(Point p)
@@ -26,6 +27,43 @@ bool Tri::checkInside(Point p)
 
 }
 
+
+
+
+void Tri::Save(ofstream& OutFile)
+{
+	string fill;
+	string colo = save_colors(ShpGfxInfo.DrawClr);
+	
+	if (ShpGfxInfo.isFilled) {
+		fill = save_colors(ShpGfxInfo.FillClr);
+	}
+	else
+	{
+		fill = "NO_FILL";
+	}
+
+	OutFile << "Tri " << ID << " " << Corner1.x << " " << Corner1.y << " " << Corner2.x << " " << Corner2.y << Corner3.x<<" "<<Corner3.y << " " << colo << " " << fill <<" " << " " << ShpGfxInfo.BorderWdth << endl;
+}
+
+void Tri::Load(ifstream& Infile)
+{
+	string drawColor, fillColor;
+	Infile >> ID >> Corner1.x >> Corner1.y
+		>> Corner2.x >> Corner2.y >> Corner3.x >> Corner3.y >> drawColor >> fillColor;
+
+	ShpGfxInfo.DrawClr = GetStrinColor2(drawColor);
+
+	if (fillColor == "NON-FILLED")
+		ShpGfxInfo.isFilled = false;
+	else
+	{
+		ShpGfxInfo.FillClr = GetStrinColor2(fillColor);
+		ShpGfxInfo.isFilled = true;
+	}
+	ShpGfxInfo.isSelected = false;
+
+}
 
 Tri::~Tri()
 {}
