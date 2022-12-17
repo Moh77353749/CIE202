@@ -33,8 +33,8 @@ void addSqu::Execute()
 	Point topLeft;
 	topLeft.x = P1.x < P2.x ? P1.x : P2.x;
 	topLeft.y = P1.y < P2.y ? P1.y : P2.y;
-	P2.x = P2.x + L;
-	P2.y = P2.y + L;
+	P2.x = P1.x + L;
+	P2.y = P1.y + L;
 	//Preapre all Square parameters
 	
 	GfxInfo SquGfxInfo;
@@ -43,8 +43,8 @@ void addSqu::Execute()
 	SquGfxInfo.DrawClr = pUI->getCrntDrawColor();
 	SquGfxInfo.FillClr = pUI->getCrntFillColor();
 	SquGfxInfo.BorderWdth = pUI->getCrntPenWidth();
-	SquGfxInfo.isFilled = true;	//default is not filled
-	SquGfxInfo.isSelected = true;	//defualt is not selected
+	SquGfxInfo.isFilled = false;	//default is not filled
+	SquGfxInfo.isSelected = false;	//defualt is not selected
 
 
 	//Create a Square with the above parameters

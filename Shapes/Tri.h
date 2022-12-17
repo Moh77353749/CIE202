@@ -12,6 +12,9 @@ private:
 public:
 	Tri(Point, Point,Point, GfxInfo shapeGfxInfo);
 	bool checkInside(Point p) override;
+	
+	void Save(ofstream& OutFile) override;
+	virtual void Load(ifstream& Infile);
 	virtual ~Tri();
 	virtual void Draw(GUI* pUI) const;
 
