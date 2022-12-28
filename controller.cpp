@@ -6,8 +6,8 @@
 #include "operations\ToPlay.h"
 #include "operations\addSqu.h"
 #include "operations\opAddOval.h"
-
-
+#include "operations/opMulSel.h"
+#include "opMDel.h"
 #include "opsave.h"
 #include "operations/fillColor.h"
 #include "operations/CHNG_PEN_COLOR.h"
@@ -103,7 +103,12 @@ operation* controller::createOperation(operationType OpType)
 		case TO_PLAY:
 			pOp = new ToPlay(this);
 			break;
-
+		case MSelect:
+			pOp = new opMulSel(this);
+			break;
+		case MDelete:
+			pOp = new opMDel(this);
+			break;
 		case EXIT:
 			pOp = new Exit(this);
 			///create Exitoperation here

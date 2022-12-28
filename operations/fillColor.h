@@ -12,8 +12,8 @@ class fillColor : public operation
 public:
 	fillColor(controller* pCont);
 
-	//Reads draw color parameters
-	virtual void ReadActionParameters();
+
+	
 
 	//Changes current/selected figure draw color
 	virtual void Execute();

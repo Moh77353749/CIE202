@@ -138,7 +138,6 @@
     <ClCompile Include="operations\opDelete.cpp">
       <Filter>Operations</Filter>
     </ClCompile>
-    <ClCompile Include="operations\opSel.cpp" />
     <ClCompile Include="opsave.cpp" />
     <ClCompile Include="operations\opAddCirc.cpp">
       <Filter>Operations</Filter>
@@ -177,6 +176,15 @@
       <Filter>Shapes&amp;Graph</Filter>
     </ClCompile>
     <ClCompile Include="operations\addSqu.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opMulSel.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opSel.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="opMDel.cpp">
       <Filter>Operations</Filter>
     </ClCompile>
   </ItemGroup>
@@ -275,7 +283,6 @@
       <Filter>Operations</Filter>
     </ClInclude>
     <ClInclude Include="operations\opselect.h" />
-    <ClInclude Include="operations\opSel.h" />
     <ClInclude Include="opsave.h" />
     <ClInclude Include="operations\opAddCirc.h">
       <Filter>Operations</Filter>
@@ -317,6 +324,15 @@
       <Filter>Operations</Filter>
     </ClInclude>
     <ClInclude Include="operations\opAddTri.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opMulSel.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opSel.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="opMDel.h">
       <Filter>Operations</Filter>
     </ClInclude>
   </ItemGroup>

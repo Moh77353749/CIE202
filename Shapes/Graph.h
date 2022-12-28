@@ -24,7 +24,9 @@ public:
 	void setshape(shape* sh);
 	void Addshape(shape* pFig); //Adds a new shape to the shapesList
 	void Draw(GUI* pUI) const;			//Draw the graph (draw all shapes)
-	shape* Getshape(Point) ; //Search for a shape given a point inside the shape
+	void Getshape(Point) ; //Search for a shape given a point inside the shape
+	shape* GetMshape(Point);
+	void DelMshape();
 	void Delshape();
 	void fill(color c);
 	void bordc(color c);

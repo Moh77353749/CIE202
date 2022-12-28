@@ -53,7 +53,9 @@ class GUI
 		ICON_SAVE,
 		ICON_brod,
 		ICON_DELETE,
+		ICON_MDEL,
 		//TODO: Add more icons names here
+		ICON_MSEL,
 		ICON_CHNG_FILL_CLR,
 		ICON_CHNG_PEN_WID,
 		ICON_EXIT,		//Exit icon

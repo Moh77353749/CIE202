@@ -42,26 +42,49 @@ void Graph::setshape(shape* sh)
 	selectedShape = sh;
 }
 
-shape* Graph::Getshape(Point p)
+void Graph::Getshape(Point p)
 {
 	for (int i = 0; i < shapesList.size(); i++) {
 		if ((shapesList[i]->checkInside(p)) == TRUE) {
+			if (shapesList[i]->IsSelected() == TRUE)
+			{
+				shapesList[i]->SetSelected(0);
+			}
+			else
+			{
+				shapesList[i]->SetSelected(1);
+				selectedShape = shapesList[i];	
+			}
+		}
+		else
+		{
+			shapesList[i]->SetSelected(0);
+			
+		}
+
+	}
+}
+
+shape* Graph::GetMshape(Point h)
+{
+	for (int i = 0; i < shapesList.size(); i++) {
+		if ((shapesList[i]->checkInside(h)) == TRUE) {
 			if (shapesList[i]->IsSelected() == FALSE)
 			{
 				shapesList[i]->SetSelected(1);
 				selectedShape = shapesList[i];
 				return shapesList[i];
 			}
-			else
-			{
-				shapesList[i]->SetSelected(0);
-			}
 		}
-		else
-		{
-			shapesList[i]->SetSelected(0);
-		}
+	}
+}
 
+void Graph::DelMshape()
+{
+	for (int i = 0; i < shapesList.size(); i++) {
+		if ((shapesList[i]->IsSelected()) == TRUE) {
+			shapesList.erase(shapesList.begin() + i);
+		}
 	}
 }
 
@@ -70,6 +93,7 @@ void Graph::Delshape()
 	for (int i = 0; i < shapesList.size(); i++) {
 		if ((shapesList[i]->IsSelected()) == TRUE) {
 			shapesList.erase(shapesList.begin()+i);
+			break;				
 		}
 	}
 }

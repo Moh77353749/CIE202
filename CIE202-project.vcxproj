@@ -180,8 +180,10 @@
     <ClCompile Include="operations\opAddRect.cpp" />
     <ClCompile Include="operations\opAddTri.cpp" />
     <ClCompile Include="operations\opDelete.cpp" />
+    <ClCompile Include="operations\opMulSel.cpp" />
     <ClCompile Include="operations\opSel.cpp" />
     <ClCompile Include="operations\ToPlay.cpp" />
+    <ClCompile Include="opMDel.cpp" />
     <ClCompile Include="opsave.cpp" />
     <ClCompile Include="Shapes\Circ.cpp" />
     <ClCompile Include="Shapes\Graph.cpp" />
@@ -230,9 +232,11 @@
     <ClInclude Include="operations\opAddTri.h" />
     <ClInclude Include="operations\opDelete.h" />
     <ClInclude Include="operations\operation.h" />
+    <ClInclude Include="operations\opMulSel.h" />
     <ClInclude Include="operations\opSel.h" />
     <ClInclude Include="operations\opselect.h" />
     <ClInclude Include="operations\ToPlay.h" />
+    <ClInclude Include="opMDel.h" />
     <ClInclude Include="opsave.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Shapes\Circ.h" />

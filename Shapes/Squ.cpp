@@ -31,21 +31,12 @@ bool Squ::checkInside(Point p)
 
 void Squ::Save(ofstream& OutFile)
 {
-	vector<string> propers;
+	string fill;
+	string colo = save_colors(ShpGfxInfo.DrawClr);
 
-	propers.push_back("RECT ");
-	propers.push_back(to_string(ID));
-	propers.push_back(to_string(Corner1.x));
-	propers.push_back(to_string(Corner1.y));
-	propers.push_back(to_string(Corner2.x));
-	propers.push_back(to_string(Corner2.y));
-
-	for (int i = 0; i < propers.size(); i++) {
-		OutFile << propers[i];
-		OutFile << " ";
-	}
-	OutFile << "\n";
-	propers.clear();
+	if (ShpGfxInfo.isFilled) fill = save_colors(ShpGfxInfo.FillClr);
+	else fill = "NON-FILLED";
+	OutFile << "SQU " << ID << " " << Corner1.x << " " << Corner1.y << " " << Corner2.x << " " << Corner2.y << " " << colo << " " << fill << " " << ShpGfxInfo.BorderWdth << endl;
 }
 void Squ::Load(ifstream& Infile)
 {

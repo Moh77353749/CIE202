@@ -111,7 +111,9 @@ operationType GUI::GetUseroperation() const
 			case ICON_SAVE: return SAVE;
 			case ICON_brod: return actionch;
 			case ICON_DELETE: return DEL;
+			case ICON_MDEL: return MDelete;
 			case ICON_EXIT: return EXIT;
+			case ICON_MSEL: return MSelect;
 			case ICON_CHNG_FILL_CLR: return CHNG_FILL_CLR;
 			default: return EMPTY;	//A click on empty place in desgin toolbar
 			}
@@ -196,6 +198,7 @@ void GUI::CreateDrawToolBar()
 	MenuIconImages[ICON_SQU] = "images\\MenuIcons\\Menu_Squ.jpg";
 	MenuIconImages[ICON_CIRC] = "images\\MenuIcons\\Menu_Circ.JPEG";
 	MenuIconImages[ICON_SEL]  = "images\\MenuIcons\\Menu_Sel.JPEG";
+	MenuIconImages[ICON_MSEL] = "images\\MenuIcons\\MulSelect.JPEG";
 	MenuIconImages[ICON_DELETE] = "images\\MenuIcons\\Menu_Del.JPEG";
 	MenuIconImages[ICON_brod] = "images\\MenuIcons\\pen.JPG";
 	MenuIconImages[ICON_LOAD] = "images\\MenuIcons\\Menu_Download.JPG";
@@ -203,9 +206,11 @@ void GUI::CreateDrawToolBar()
 	MenuIconImages[ICON_EXIT] = "images\\MenuIcons\\Menu_Exit.JPEG";
 	MenuIconImages[ICON_OVAL] = "images\\MenuIcons\\Menu_OVAL.jpg";
 	MenuIconImages[ICON_PLAY] = "images\\MenuIcons\\Menu_Play.jpg";
+	MenuIconImages[ICON_MDEL] = "images\\MenuIcons\\Menu_MulDel.JPEG";
 	MenuIconImages[ICON_CHNG_PEN_WID] = "images\\MenuIcons\\Menu_CHNG_PEN_WID.JPEG";
 	MenuIconImages[ICON_CHNG_PEN_CLR] = "images\\MenuIcons\\Menu_CHNG_PEN_CLR.JPEG";
 	MenuIconImages[ICON_CHNG_FILL_CLR] = "images\\MenuIcons\\Menu_CHNG_FILL_CLR.JPEG";
+
 	//Draw menu icon one image at a time
 	for (int i = 0; i < DRAW_ICON_COUNT; i++)
 		pWind->DrawImage(MenuIconImages[i], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);

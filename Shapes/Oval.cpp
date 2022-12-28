@@ -29,7 +29,7 @@ void Oval::Save(ofstream& OutFile)
 	string colo = save_colors(ShpGfxInfo.DrawClr);
 
 	if (ShpGfxInfo.isFilled) fill = save_colors(ShpGfxInfo.FillClr);
-	else fill = "NO_FILL";
+	else fill = "NON-FILLED";
 	OutFile << "Oval " << ID << " " << focal1.x << " " << focal1.y << " " << focal2.x << " " << focal2.y << " " << colo << " " << fill << " " << ShpGfxInfo.BorderWdth << endl;
 
 }

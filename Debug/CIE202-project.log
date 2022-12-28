@@ -1,0 +1,13 @@
+﻿cl : command line  warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  Graph.cpp
+C:\Users\mohza\OneDrive\Desktop\Mywork\UpgradeLog\UpgradeLog\Shapes\Graph.cpp(47,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\mohza\OneDrive\Desktop\Mywork\UpgradeLog\UpgradeLog\Shapes\Graph.cpp(70,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\mohza\OneDrive\Desktop\Mywork\UpgradeLog\UpgradeLog\Shapes\Graph.cpp(84,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\mohza\OneDrive\Desktop\Mywork\UpgradeLog\UpgradeLog\Shapes\Graph.cpp(93,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\mohza\OneDrive\Desktop\Mywork\UpgradeLog\UpgradeLog\Shapes\Graph.cpp(103,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\mohza\OneDrive\Desktop\Mywork\UpgradeLog\UpgradeLog\Shapes\Graph.cpp(112,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\mohza\OneDrive\Desktop\Mywork\UpgradeLog\UpgradeLog\Shapes\Graph.cpp(121,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\mohza\OneDrive\Desktop\Mywork\UpgradeLog\UpgradeLog\Shapes\Graph.cpp(131,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\mohza\OneDrive\Desktop\Mywork\UpgradeLog\UpgradeLog\Shapes\Graph.cpp(138,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\mohza\OneDrive\Desktop\Mywork\UpgradeLog\UpgradeLog\Shapes\Graph.cpp(80): warning C4715: 'Graph::GetMshape': not all control paths return a value
+  CIE202-project.vcxproj -> C:\Users\mohza\OneDrive\Desktop\Mywork\UpgradeLog\UpgradeLog\Debug\CIE202-project.exe
