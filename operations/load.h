@@ -9,7 +9,7 @@ public:
 	LoAd(controller* pCont);
 
 
-	virtual void ReadParameters();
+	
 	virtual void Execute();
 	virtual void Undo();
 	virtual void Redo();

@@ -15,14 +15,11 @@ void fillColor::Execute()
 	GUI* pUI = pControl->GetUI();
 	pUI->GetPointClicked(x, y);
 	color z=pUI->GetcolorClicked(x,y);
-	//string colorOptions = pUI->GetSrting();
+
 	
 	gi = pControl->getGraph();
 	gi->fill(z);
 	pUI->setCrntFillColor(z);
-	
-	
-	pUI->ClearStatusBar();
 }
 
 void fillColor::Undo()

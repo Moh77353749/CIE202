@@ -33,7 +33,7 @@ void Circ::Save(ofstream& OutFile)
 	string colo = save_colors(ShpGfxInfo.DrawClr);
 
 	if (ShpGfxInfo.isFilled) fill = save_colors(ShpGfxInfo.FillClr);
-	else fill = "NO_FILL";
+	else fill = "NON-FILLED";
 	OutFile << "Circle " << ID << " " << center.x << " " << center.y << " " << radius.x << " " << radius.y << " " << colo << " " << fill << " " << ShpGfxInfo.BorderWdth << endl;
 }
 

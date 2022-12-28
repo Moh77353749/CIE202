@@ -40,7 +40,7 @@ void Tri::Save(ofstream& OutFile)
 	}
 	else
 	{
-		fill = "NO_FILL";
+		fill = "NON-FILLED";
 	}
 
 	OutFile << "Tri " << ID << " " << Corner1.x << " " << Corner1.y << " " << Corner2.x << " " << Corner2.y << Corner3.x<<" "<<Corner3.y << " " << colo << " " << fill <<" " << " " << ShpGfxInfo.BorderWdth << endl;

@@ -34,7 +34,7 @@ void Line::Save(ofstream& OutFile)
 	}
 	else
 	{
-		fill = "NO_FILL";
+		fill = "NON-FILLED";
 	}
 
 	OutFile << "Line " << ID << " " << Corner1.x << " " << Corner1.y  << " " << colo << " " << fill << " " << " " << ShpGfxInfo.BorderWdth <<endl;

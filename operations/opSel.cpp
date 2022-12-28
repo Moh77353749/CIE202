@@ -14,7 +14,7 @@ void opSel::Execute()
 	P->GetPointClicked(P1.x, P1.y);
 	P->ClearStatusBar();
 	g = pControl->getGraph();
-	shape* s = g->Getshape(P1);
+	g->Getshape(P1);
 	
 
 }

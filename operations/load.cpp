@@ -20,10 +20,7 @@ LoAd::LoAd(controller* pCont) :operation(pCont)
 
 
 
-void LoAd::ReadParameters()
-{
 
-}
 
 //Execute the action
 void LoAd::Execute()
@@ -34,7 +31,7 @@ void LoAd::Execute()
 	GfxInfo Info;
 	shape* figure;
 	GUI* n = pControl->GetUI();
-	n->PrintMessage("wite the file name");
+	n->PrintMessage("write the file name");
 	
 	
 	
