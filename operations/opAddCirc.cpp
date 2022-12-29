@@ -1,9 +1,9 @@
 #include "opAddCirc.h"
-#include "../Shapes/Circ.h"
+#include "Circ.h"
 
-#include "../controller.h"
+#include "controller.h"
 
-#include "../GUI/GUI.h"
+#include "GUI/GUI.h"
 
 opAddCirc::opAddCirc(controller* pCont) :operation(pCont)
 {}

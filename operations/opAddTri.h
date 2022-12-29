@@ -1,13 +1,14 @@
 #pragma once
-#include "../operations/operation.h"
-#include "../controller.h"
+
+#include "operation.h"
+
 class opAddTri: public operation
 	{
 	public:
 		opAddTri(controller * pCont);
 		virtual ~opAddTri();
 
-		//Add tri to the controller
+		//Add rectangle to the controller
 		virtual void Execute();
 };
 

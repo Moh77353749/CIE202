@@ -1,6 +1,6 @@
 #pragma once
 
-#include"../operations/operation.h"
+#include"operations/operation.h"
 class opAddCirc :
     public operation
 {
