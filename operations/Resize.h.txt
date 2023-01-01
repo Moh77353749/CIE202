@@ -1,0 +1,20 @@
+#pragma once
+#ifndef ACTION_RESIZE_H
+#define ACTION_RESIZE_H
+
+#include "operation.h"
+
+
+class Resize :public operation
+{
+	double Scale;
+	bool anyFigSelected;
+	Point P;
+
+
+public:
+	Resize(controller* pCont, double _Scale);
+	virtual void Execute();
+
+};
+#endif
