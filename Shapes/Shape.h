@@ -13,13 +13,13 @@ protected:
 	int ID;		//Each shape has an ID
 	bool Selected;	//true if the figure is selected.
 	GfxInfo ShpGfxInfo;	//shape graphis info
-	vector<string> propers;
+	//vector<string> propers;
 	/// Add more parameters if needed.
 
 public:
 	void SetID(int id);
 	virtual bool checkInside(Point p) = 0;
-	//virtual shape* clone(Point p) = 0;
+	
 	
 	shape(GfxInfo shapeGfxInfo);
 	virtual ~shape() {}

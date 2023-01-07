@@ -8,6 +8,8 @@ class fillColor : public operation
 {
 	Point P1;
 	color FillClr;
+	color prev_col;
+	color z;
 	shape** ptrfigurelist;
 public:
 	fillColor(controller* pCont);

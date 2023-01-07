@@ -8,7 +8,8 @@ class changePenWidth :
 {
 private:
 	Point Point1, Point2;
-
+	string prev_col="3";
+	string penWid;
 public:
 	changePenWidth(controller* pCont);
 

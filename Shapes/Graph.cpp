@@ -29,7 +29,7 @@ void Graph::Addshape(shape* pShp)
 void Graph::add_stack(operation* o)
 {
 	stackUndo.push(o);
-	//cout << stackUndo.size() << endl;
+	
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Draw all shapes on the user interface
@@ -151,20 +151,22 @@ void Graph::Undo_Actions()
 	if (!stackUndo.empty()) {
 		operation* last = stackUndo.top();
 		last->Undo();
-		
-		//shapesList.pop_back();
 		stackUndo.pop();
 		stackRedo.push(last);
 	}
-	//cout << "el ha'onaaaaaaaaaa";
-
+	
+	
 }
+
+
 
 void Graph::Undo_Shape()
 {
-	
-	shapesList.pop_back();
-
+	if (!shapesList.empty())
+	{
+		deleted = shapesList.back();
+		shapesList.pop_back();
+	}
 }
 
 void Graph::Redo_Actions()
@@ -183,6 +185,15 @@ void Graph::Redo_shapes(shape* s)
 	shapesList.push_back(s);
 	//cout<<shapesList.size()<<endl;
 }
+
+void Graph::Redo_del()
+{
+	cout << shapesList.size()<<endl;
+	shapesList.push_back(deleted);
+	cout << shapesList.size() << endl;
+}
+
+
 
 /*void Graph::stickImage(string st)
 {

@@ -12,11 +12,12 @@ void fillColor::Execute()
 {
 	int x, y;
 	Graph* gi;
+	prev_col = WHITE;
 	GUI* pUI = pControl->GetUI();
+	pUI->PrintMessage(" fill color is active: click at your color");
 	pUI->GetPointClicked(x, y);
-	color z=pUI->GetcolorClicked(x,y);
-
-	
+	z=pUI->GetcolorClicked(x,y);
+	pUI->ClearStatusBar();
 	gi = pControl->getGraph();
 	gi->fill(z);
 	pUI->setCrntFillColor(z);
@@ -24,8 +25,16 @@ void fillColor::Execute()
 
 void fillColor::Undo()
 {
+	Graph* gi;
+	GUI* pUI = pControl->GetUI();
+	gi = pControl->getGraph();
+	gi->fill(prev_col);
 }
 
 void fillColor::Redo()
 {
+	Graph* gi;
+	GUI* pUI = pControl->GetUI();
+	gi = pControl->getGraph();
+	gi->fill(z);
 }
