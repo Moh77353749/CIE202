@@ -121,8 +121,9 @@ void controller::Run()
 #include "operations\addSqu.h"
 #include "operations\opAddOval.h"
 #include "operations/opMulSel.h"
-#include "opMDel.h"
-#include "opsave.h"
+#include "operations/opMDel.h"
+#include "operations/opsave.h"
+#include "operations/opSend2back.h"
 #include "operations/fillColor.h"
 #include "operations/CHNG_PEN_COLOR.h"
 #include "operations/changePenWidth.h"
@@ -132,6 +133,8 @@ void controller::Run()
 #include "operations/load.h"
 #include "operations/opDelete.h"
 #include "Shapes/Graph.h"
+#include "operations/opUndo.h"
+#include "operations/opRedo.h"
 
 
 //Constructor
@@ -139,9 +142,6 @@ controller::controller()
 {
 	pGraph = new Graph;
 	pGUI = new GUI;	//Create GUI object
-	
-	
-
 }
 
 //==================================================================================//
@@ -165,78 +165,109 @@ operation* controller::createOperation(operationType OpType)
 	//According to operation Type, create the corresponding operation object
 	switch (OpType)
 	{
-		case DRAW_RECT:
-			pOp = new opAddRect(this);
-			break;
+	case DRAW_RECT:
+		pOp = new opAddRect(this);
+		break;
 
-		case DRAW_LINE:
-			pOp = new opAddLine(this);///create AddLine operation here
+	case DRAW_LINE:
+		pOp = new opAddLine(this);
+		break;
+	case DRAW_TRI:
+		pOp = new opAddTri(this);
 
-			break;
-		case DRAW_TRI:
-			pOp = new opAddTri(this);///create Addtri operation here
+		break;
+	case DRAW_Squ:
 
-			break;
-		case DRAW_Squ:
-			///create AddLineoperation here
-			pOp = new addSqu(this);
-			break;
-		case SELECT:
-			pOp =  new opSel(this);
-			break;
+		pOp = new addSqu(this);
+		break;
+	case SELECT:
+		pOp = new opSel(this);
+		break;
 
-		case DEL:
-			pOp = new opDelete(this);
-			break;
-		case CHNG_FILL_CLR:
-			pOp = new fillColor(this);
-			break;
-		case SAVE:
-			pOp = new opsave(this); // do the save operation
-			break;
-		case DRAW_CIRC:
-			pOp = new opAddCirc(this);
-			break;
-		case DRAW_OVAL:
-			pOp = new opAddOval(this);
-			break;
-
-		case CHNG_PEN_WID:
-			pOp = new changePenWidth(this);
-			break;
-		case CHNG_DRAW_CLR:
-			pOp = new CHNG_PEN_COLOR(this);
-			break;
-		case LOAD:
-			pOp = new LoAd(this);
-			break;
-		case actionch:
-			pOp = new ActionChClr(this);
-			break;
-			break;
-		case TO_PLAY:
-			pOp = new ToPlay(this);
-			break;
-		case MSelect:
-			pOp = new opMulSel(this);
-			break;
-		case MDelete:
-			pOp = new opMDel(this);
-			break;
-		case EXIT:
-			pOp = new Exit(this);
-			///create Exitoperation here
-
-			break;
-		
-		case STATUS:	//a click on the status bar ==> no operation
-			break;
+	case DEL:
+		pOp = new opDelete(this);
+		break;
+	case CHNG_FILL_CLR:
+		pOp = new fillColor(this);
+		break;
+	case SAVE:
+		pOp = new opsave(this); // do the save operation
+		break;
+	case DRAW_CIRC:
+		pOp = new opAddCirc(this);
+		break;
+	case DRAW_OVAL:
+		pOp = new opAddOval(this);
+		break;
+	case CHNG_PEN_WID:
+		pOp = new changePenWidth(this);
+		break;
+	case CHNG_DRAW_CLR:
+		pOp = new CHNG_PEN_COLOR(this);
+		break;
+	case LOAD:
+		pOp = new LoAd(this);
+		break;
+	case actionch:
+		pOp = new ActionChClr(this);
+		break;
+	case TO_PLAY:
+		pOp = new ToPlay(this);
+		break;
+	case MSelect:
+		pOp = new opMulSel(this);
+		break;
+	case MDelete:
+		pOp = new opMDel(this);
+		break;
+	case EXIT:
+		pOp = new Exit(this);
+		break;
+	case SEND_BACK:
+		pOp = new opSend2back(this);
+		break;
+	case UNDO:
+		pOp = new opUndo(this);
+		break;
+	case REDO:
+		pOp = new opRedo(this);
+		break;
+	case STATUS:	//a click on the status bar ==> no operation
+		break;
 	}
+	
+	if (OpType != UNDO && OpType != REDO) {
+		
+		//pOp->Execute();
 
+		pGraph->add_stack(pOp);
+		
+
+	}
+	/*	if ((pOp && OpType != REDO)) {
+		if ((OpType == UNDO))
+		{
+			pOp->Execute();
+			//delete pOp;
+		}
+
+	}*/
+
+	
 	return pOp;
 	
 }
-
+void controller::LoadFig()  //for each figure FigList, make it points to NULL 
+{
+	for (int i = 0; i < FigCount; ++i)
+		FigList[i] = NULL;
+	FigCount = 0;
+}
+void controller::AddFigure(shape* pFig)
+{
+	if (FigCount < 200)
+		FigList[FigCount++] = pFig;
+}
 color controller::ConvertToColor(string s)
 {
 	if (s == "BLACK")
@@ -255,17 +286,8 @@ color controller::ConvertToColor(string s)
 		return LIGHTGOLDENRODYELLOW;
 	return GREY;
 }
-void controller::LoadFig()  //for each figure FigList, make it points to NULL 
-{
-	for (int i = 0; i < FigCount; ++i)
-		FigList[i] = NULL;
-	FigCount = 0;
-}
-void controller::AddFigure(shape* pFig)
-{
-	if (FigCount < 200)
-		FigList[FigCount++] = pFig;
-}
+
+
 //==================================================================================//
 //							Interface Management Functions							//
 //==================================================================================//
@@ -330,8 +352,8 @@ void controller::Run()
 		if (pOpr)
 		{
 			pOpr->Execute();//Execute
-			delete pOpr;	//operation is not needed any more ==> delete it
-			pOpr = nullptr;
+			//delete pOpr;	//operation is not needed any more ==> delete it
+			//pOpr = nullptr;
 		}
 
 		//Update the interface

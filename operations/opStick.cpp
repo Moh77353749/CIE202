@@ -12,6 +12,6 @@ void opStick::Execute()
 	pic_name = Po->GetSrting();
 	Po->ClearStatusBar();
 	gi = pControl->getGraph();
-	gi->stickImage(pic_name);
+	//gi->stickImage(pic_name);
 	
 }

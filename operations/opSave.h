@@ -1,5 +1,5 @@
 #pragma once
-#include "operations/operation.h"
+#include "../operations/operation.h"
 
 class opsave : public operation
 {
@@ -8,5 +8,7 @@ private:
 public:
 	opsave(controller* pCont);
 	virtual void Execute();
+	void Undo() override;
+	void Redo() override;
 };
 

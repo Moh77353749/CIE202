@@ -1,7 +1,7 @@
 #include "opsave.h"
-#include "Shapes/Shape.h"
-#include "controller.h"
-#include "Shapes/Graph.h"
+#include "../Shapes/Shape.h"
+#include "../controller.h"
+#include "../Shapes/Graph.h"
 using namespace std;
 opsave::opsave(controller* pCont) : operation{ pCont }
 {
@@ -28,4 +28,12 @@ void opsave::Execute()
 	Graph* g;
 	g=pControl->getGraph();
 	g->Save_shapes(Out_file);
+}
+
+void opsave::Undo()
+{
+}
+
+void opsave::Redo()
+{
 }

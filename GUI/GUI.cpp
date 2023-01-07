@@ -14,7 +14,7 @@ GUI::GUI()
 
 	StatusBarHeight = 50;
 	ToolBarHeight = 50;
-	MenuIconWidth = 80;
+	MenuIconWidth = 70;
 
 	DrawColor = BLUE;	//default Drawing color
 	FillColor = GREEN;	//default Filling color
@@ -113,7 +113,10 @@ operationType GUI::GetUseroperation() const
 			case ICON_DELETE: return DEL;
 			case ICON_MDEL: return MDelete;
 			case ICON_EXIT: return EXIT;
+			case ICON_Send: return SEND_BACK;
 			case ICON_MSEL: return MSelect;
+			case ICON_Undo: return UNDO;
+			case ICON_Redo: return REDO;
 			case ICON_CHNG_FILL_CLR: return CHNG_FILL_CLR;
 			default: return EMPTY;	//A click on empty place in desgin toolbar
 			}
@@ -209,8 +212,10 @@ void GUI::CreateDrawToolBar()
 	MenuIconImages[ICON_MDEL] = "images\\MenuIcons\\Menu_MulDel.JPEG";
 	MenuIconImages[ICON_CHNG_PEN_WID] = "images\\MenuIcons\\Menu_CHNG_PEN_WID.JPEG";
 	MenuIconImages[ICON_CHNG_PEN_CLR] = "images\\MenuIcons\\Menu_CHNG_PEN_CLR.JPEG";
-	MenuIconImages[ICON_CHNG_FILL_CLR] = "images\\MenuIcons\\Menu_CHNG_FILL_CLR.JPEG";
-
+	MenuIconImages[ICON_CHNG_FILL_CLR] = "images\\MenuIcons\\Menu_CHNG_FILL_CLR.JPEG"; //Menu_Send.JPEG
+	MenuIconImages[ICON_Send] = "images\\MenuIcons\\Menu_Send.JPEG";
+	MenuIconImages[ICON_Redo] = "images\\MenuIcons\\Menu_Redo.JPEG";
+	MenuIconImages[ICON_Undo] = "images\\MenuIcons\\Menu_Undo.JPEG";
 	//Draw menu icon one image at a time
 	for (int i = 0; i < DRAW_ICON_COUNT; i++)
 		pWind->DrawImage(MenuIconImages[i], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);

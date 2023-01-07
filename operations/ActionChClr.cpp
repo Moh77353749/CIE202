@@ -8,9 +8,7 @@ ActionChClr::ActionChClr(controller* pCont) :operation(pCont)
 {
 }
 
-void ActionChClr::ReadActionParameters()
-{
-}
+
 void ActionChClr::Execute()
 {
 

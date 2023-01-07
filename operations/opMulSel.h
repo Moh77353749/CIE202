@@ -9,5 +9,7 @@ class opMulSel : public operation
 public:
 	opMulSel(controller* pCont);
 	virtual void Execute();
+	void Undo() override;
+	void Redo()override;
 };
 

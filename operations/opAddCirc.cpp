@@ -36,7 +36,7 @@ void opAddCirc::Execute()
 	CircGfxInfo.DrawClr = pUI->getCrntDrawColor();
 	CircGfxInfo.FillClr = pUI->getCrntFillColor();
 	CircGfxInfo.BorderWdth = pUI->getCrntPenWidth();
-
+	CircGfxInfo.ID = 3;
 
 	CircGfxInfo.isFilled = false;	//default is not filled
 	CircGfxInfo.isSelected = false;	//defualt is not selected
@@ -44,12 +44,28 @@ void opAddCirc::Execute()
 
 	//Create a rectangle with the above parameters
 	Circ* R = new Circ(P1, P2, CircGfxInfo);
-
+	shap = R;
 	//Get a pointer to the graph
 	Graph* pGr = pControl->getGraph();
 
 	//Add the rectangle to the list of shapes
 	pGr->Addshape(R);
 
+}
+
+void opAddCirc::Undo()
+{
+	Graph* g;
+	GUI* P = pControl->GetUI();
+	g = pControl->getGraph();
+	g->Undo_Shape();
+}
+
+void opAddCirc::Redo()
+{
+	Graph* g;
+	GUI* P = pControl->GetUI();
+	g = pControl->getGraph();
+	g->Redo_shapes(shap);
 }
 

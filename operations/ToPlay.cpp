@@ -11,3 +11,11 @@ void ToPlay::Execute()
 	pUI->CreatePlayToolBar();
 	pUI->PrintMessage("Switched to Play Mode ");
 }
+
+void ToPlay::Undo()
+{
+}
+
+void ToPlay::Redo()
+{
+}

@@ -12,3 +12,11 @@ void opMDel::Execute()
 	gi = pControl->getGraph();
 	gi->DelMshape();
 }
+
+void opMDel::Undo()
+{
+}
+
+void opMDel::Redo()
+{
+}

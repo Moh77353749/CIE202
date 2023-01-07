@@ -11,7 +11,7 @@ public:
 	ActionChClr(controller* pCont);
 
 
-	virtual void ReadActionParameters();
+	//virtual void ReadActionParameters();
 
 
 	virtual void Execute();

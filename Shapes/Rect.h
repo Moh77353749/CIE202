@@ -13,6 +13,7 @@ private:
 public:
 Rect(Point , Point, GfxInfo shapeGfxInfo );
 	bool checkInside(Point p) override;
+	
 	void Save(ofstream& OutFile) override;
 	virtual void Load(ifstream& Infile);
 

@@ -32,11 +32,14 @@ bool Rect::checkInside(Point p)
 
 
 
+
+
 /* order of the save, 
 shape type,id,P1.x, P1.y,P2.x,P2.y, boarder width,draw color, fill color*/
 void Rect::Save(ofstream& OutFile)
 {
 	string fill;
+	color j = ShpGfxInfo.FillClr;
 	string colo= save_colors(ShpGfxInfo.DrawClr);
 	
 	if (ShpGfxInfo.isFilled) fill = save_colors(ShpGfxInfo.FillClr);
