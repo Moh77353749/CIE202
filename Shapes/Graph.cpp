@@ -21,9 +21,15 @@ Graph::~Graph()
 //Add a shape to the list of shapes
 void Graph::Addshape(shape* pShp)
 {
-
 	//Add a new shape to the shapes vector
-	shapesList.push_back(pShp);	
+	shapesList.push_back(pShp);
+	//cout << "your shape have been added";
+
+}
+void Graph::add_stack(operation* o)
+{
+	stackUndo.push(o);
+	//cout << stackUndo.size() << endl;
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Draw all shapes on the user interface
@@ -65,15 +71,13 @@ void Graph::Getshape(Point p)
 	}
 }
 
-shape* Graph::GetMshape(Point h)
+void Graph::GetMshape(Point h)
 {
 	for (int i = 0; i < shapesList.size(); i++) {
 		if ((shapesList[i]->checkInside(h)) == TRUE) {
 			if (shapesList[i]->IsSelected() == FALSE)
 			{
 				shapesList[i]->SetSelected(1);
-				selectedShape = shapesList[i];
-				return shapesList[i];
 			}
 		}
 	}
@@ -81,8 +85,10 @@ shape* Graph::GetMshape(Point h)
 
 void Graph::DelMshape()
 {
-	for (int i = 0; i < shapesList.size(); i++) {
+	int size = shapesList.size();
+	for (int i = size-1; i >= 0; i--) {
 		if ((shapesList[i]->IsSelected()) == TRUE) {
+			delete shapesList[i];
 			shapesList.erase(shapesList.begin() + i);
 		}
 	}
@@ -92,6 +98,7 @@ void Graph::Delshape()
 {
 	for (int i = 0; i < shapesList.size(); i++) {
 		if ((shapesList[i]->IsSelected()) == TRUE) {
+			delete shapesList[i];
 			shapesList.erase(shapesList.begin()+i);
 			break;				
 		}
@@ -124,6 +131,67 @@ void Graph::bordw(int xx)
 		}
 	}
 }
+
+void Graph::send2b()
+{
+	shape* j;
+	for (int i = 0; i < shapesList.size(); i++) {
+		if ((shapesList[i]->IsSelected()) == TRUE && (shapesList.size() > 1)) {
+			j = shapesList[i];
+			shapesList.erase(shapesList.begin() + i);
+			shapesList.insert(shapesList.begin(), j);
+			break;
+			
+		}
+	}
+}
+
+void Graph::Undo_Actions()
+{
+	if (!stackUndo.empty()) {
+		operation* last = stackUndo.top();
+		last->Undo();
+		
+		//shapesList.pop_back();
+		stackUndo.pop();
+		stackRedo.push(last);
+	}
+	//cout << "el ha'onaaaaaaaaaa";
+
+}
+
+void Graph::Undo_Shape()
+{
+	
+	shapesList.pop_back();
+
+}
+
+void Graph::Redo_Actions()
+{
+	if (!stackRedo.empty()) {
+		operation* last = stackRedo.top();
+		stackRedo.pop();
+		last->Redo();
+		stackUndo.push(last);
+	}
+}
+
+void Graph::Redo_shapes(shape* s)
+{
+	//cout << "redo shapes  ";
+	shapesList.push_back(s);
+	//cout<<shapesList.size()<<endl;
+}
+
+/*void Graph::stickImage(string st)
+{
+	for (int i = 0; i < shapesList.size(); i++) {
+		if ((shapesList[i]->IsSelected() == TRUE)) {
+			shapesList[i];
+		}
+	}
+}*/
 
 
 void Graph::Save_shapes(ofstream& outfile)

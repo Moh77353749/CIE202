@@ -17,10 +17,6 @@ class controller
 	GUI* pUI;
 	shape* FigList[200];
 	shape* SLObj = nullptr;
-
-
-	
-
 public:	
 	controller(); 
 	~controller();
@@ -38,13 +34,13 @@ public:
 	Graph* getGraph() const;
 	void SetObjSEL(shape* SEL);
 	shape* GetObjSEL();
-	//void DeleteObj();
+	
 	// -- Interface Management Functions
 	GUI* GetUI() const; //Return pointer to the UI
 
 	void UpdateInterface() const;	//Redraws all the drawing window	
 
-	GUI* GetInput() const;
+//	GUI* GetInput() const;
 
 	GUI* GetOutput() const;
 

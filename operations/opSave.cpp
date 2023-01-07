@@ -1,45 +1,39 @@
-#include "opSave.h"
-#include <iostream>
-#include <fstream>
-#include "..\controller.h"
-#include "..\GUI\GUI.h"
-
-
-
-opSave::opSave(controller* pCont, int F_c) :operation(pCont)
+#include "opsave.h"
+#include "../Shapes/Shape.h"
+#include "../controller.h"
+#include "../Shapes/Graph.h"
+using namespace std;
+opsave::opsave(controller* pCont) : operation{ pCont }
 {
-	file_name = "Screen";
-	Fc = F_c;
+	file_name = "screen 1";
 }
 
-
-void opSave::Execute()
+void opsave::Execute()
 {
-	GUI* P_OUT = pControl->GetUI();
-	P_OUT->PrintMessage("the file name: ");
+	GUI* P = pControl->GetUI();
+	P->PrintMessage("wite the file name");
+	file_name = P->GetSrting();
+	P->ClearStatusBar();
+	ofstream Out_file;
+	Out_file.open(file_name + ".txt");
 
-	ofstream outPut_file;
-	while (outPut_file.fail())
+	while (Out_file.fail())
 	{
-		P_OUT->PrintMessage("reenter the file nem");
-		file_name = P_OUT->GetSrting();
-		outPut_file.open(file_name + ".txt");
-		if (outPut_file.good())
+		P->PrintMessage("Please write a valid name then press ENTER");
+		file_name = P->GetSrting();
+		Out_file.open(file_name + ".txt");
+		if (Out_file.good())
 			break;
-
-
 	}
-
-
+	Graph* g;
+	g=pControl->getGraph();
+	g->Save_shapes(Out_file);
 }
 
-
-void opSave::Undo()
+void opsave::Undo()
 {
 }
 
-void opSave::Redo()
+void opsave::Redo()
 {
 }
-
-

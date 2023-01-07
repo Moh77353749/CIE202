@@ -9,6 +9,7 @@ class opSel : public operation
 public:
 	opSel(controller* pCont);
 	virtual void Execute();
-
+	virtual void Undo();
+	virtual void Redo();
 };
 

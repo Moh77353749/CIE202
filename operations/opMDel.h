@@ -1,13 +1,13 @@
 #pragma once
 #include "../controller.h"
-#include "..\GUI\GUI.h"
+#include "../GUI/GUI.h"
 #include "../operations/operation.h"
-#include "..\Shapes\Graph.h"
+#include "../Shapes/Graph.h"
 
-class opMulSel : public operation
+class opMDel : public operation
 {
 public:
-	opMulSel(controller* pCont);
+	opMDel(controller* pCont);
 	virtual void Execute();
 	void Undo() override;
 	void Redo()override;

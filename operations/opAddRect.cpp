@@ -3,7 +3,7 @@
 #include "..\controller.h"
 #include "..\GUI\GUI.h"
 
-opAddRect::opAddRect(controller * pCont):operation(pCont)
+opAddRect::opAddRect(controller * pCont): operation(pCont)
 {}
 opAddRect::~opAddRect()
 {} 
@@ -38,7 +38,7 @@ void opAddRect::Execute()
 	RectGfxInfo.DrawClr = pUI->getCrntDrawColor();
 	RectGfxInfo.FillClr = pUI->getCrntFillColor();
 	RectGfxInfo.BorderWdth = pUI->getCrntPenWidth();
-
+	RectGfxInfo.ID = 4;
 
 	RectGfxInfo.isFilled = false;	//default is not filled
 	RectGfxInfo.isSelected = false;	//defualt is not selected
@@ -46,11 +46,28 @@ void opAddRect::Execute()
 
 	//Create a rectangle with the above parameters
 	Rect *R=new Rect(P1, P2, RectGfxInfo);
-
+	shap = R;
 	//Get a pointer to the graph
 	Graph* pGr = pControl->getGraph();
 
 	//Add the rectangle to the list of shapes
 	pGr->Addshape(R);
 
+}
+
+void opAddRect::Undo()
+{
+	Graph* g;
+	GUI* P = pControl->GetUI();
+	g = pControl->getGraph();
+	g->Undo_Shape();
+	
+}
+
+void opAddRect::Redo()
+{
+	Graph* g;
+	GUI* P = pControl->GetUI();
+	g = pControl->getGraph();
+	g->Redo_shapes(shap);
 }

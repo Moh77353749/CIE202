@@ -22,7 +22,8 @@ struct GfxInfo	//Graphical info common for all shapes (you may add more members)
 	bool isFilled;	//shape Filled or not
 	int BorderWdth;	//Width of shape borders
 	bool isSelected;
-		//true if the shape is selected.
+	int ID;
+		
 };
 
 
@@ -55,6 +56,9 @@ class GUI
 		ICON_DELETE,
 		ICON_MDEL,
 		//TODO: Add more icons names here
+		ICON_Undo,
+		ICON_Redo,
+		ICON_Send,
 		ICON_MSEL,
 		ICON_CHNG_FILL_CLR,
 		ICON_CHNG_PEN_WID,

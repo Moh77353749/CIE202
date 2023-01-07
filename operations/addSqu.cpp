@@ -1,9 +1,7 @@
 #include "addSqu.h"
 #include "..\shapes\Squ.h"
 #include <math.h>
-
 #include "..\controller.h"
-
 #include "..\GUI\GUI.h"
 
 addSqu::addSqu(controller * pCont) :operation(pCont)
@@ -45,17 +43,38 @@ void addSqu::Execute()
 	SquGfxInfo.BorderWdth = pUI->getCrntPenWidth();
 	SquGfxInfo.isFilled = false;	//default is not filled
 	SquGfxInfo.isSelected = false;	//defualt is not selected
-
+	SquGfxInfo.ID = 5;
 
 	//Create a Square with the above parameters
 	Squ *R = new Squ(topLeft, P2, SquGfxInfo);
-
-
+	shap = R;
+	
 	//Get a pointer to the graph
 	Graph* pGr = pControl->getGraph();
 
 	//Add the Square to the list of shapes
 	pGr->Addshape(R);
 
+}
+
+void addSqu::Undo()
+{
+	
+	
+	Graph* g;
+	GUI* P = pControl->GetUI();
+	g = pControl->getGraph();
+	//P->PrintMessage("el ha'oonaaaaaaaa");
+	
+	g->Undo_Shape();
+}
+
+void addSqu::Redo()
+{
+	cout << "you are in redo square" << endl;
+	Graph* g;
+	GUI* P = pControl->GetUI();
+	g = pControl->getGraph();
+	g->Redo_shapes(shap);
 }
 	

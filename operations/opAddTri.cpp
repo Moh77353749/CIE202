@@ -17,7 +17,7 @@ void opAddTri::Execute()
 	//Get a Pointer to the Input / Output Interfaces
 	GUI* pUI = pControl->GetUI();
 
-	pUI->PrintMessage("New Rectangle: Click at first corner");
+	pUI->PrintMessage("New Triangle: Click at first corner");
 	//Read 1st corner and store in point P1
 	pUI->GetPointClicked(P1.x, P1.y);
 
@@ -41,7 +41,7 @@ void opAddTri::Execute()
 	TriGfxInfo.DrawClr = pUI->getCrntDrawColor();
 	TriGfxInfo.FillClr = pUI->getCrntFillColor();
 	TriGfxInfo.BorderWdth = pUI->getCrntPenWidth();
-
+	TriGfxInfo.ID = 2;
 
 	TriGfxInfo.isFilled = false;	//default is not filled
 	TriGfxInfo.isSelected = false;	//defualt is not selected
@@ -49,11 +49,28 @@ void opAddTri::Execute()
 
 	//Create a rectangle with the above parameters
 	Tri* T = new Tri(P1, P2, P3, TriGfxInfo);
-
+	shap = T;
 	//Get a pointer to the graph
 	Graph* pGr = pControl->getGraph();
 
 	//Add the rectangle to the list of shapes
 	pGr->Addshape(T);
+	shap = T;
 
+}
+
+void opAddTri::Undo()
+{
+	Graph* g;
+	GUI* P = pControl->GetUI();
+	g = pControl->getGraph();
+	g->Undo_Shape();
+}
+
+void opAddTri::Redo()
+{
+	Graph* g;
+	GUI* P = pControl->GetUI();
+	g = pControl->getGraph();
+	g->Redo_shapes(shap);
 }

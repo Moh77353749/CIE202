@@ -14,3 +14,12 @@ void opDelete::Execute()
 	gi = pControl->getGraph();
 	gi->Delshape();
 }
+
+void opDelete::Undo()
+{
+
+}
+
+void opDelete::Redo()
+{
+}

@@ -36,7 +36,7 @@ void opAddOval::Execute()
 	OvGfxInfo.DrawClr = pUI->getCrntDrawColor();
 	OvGfxInfo.FillClr = pUI->getCrntFillColor();
 	OvGfxInfo.BorderWdth = pUI->getCrntPenWidth();
-
+	OvGfxInfo.ID = 5;
 
 	OvGfxInfo.isFilled = false;	//default is not filled
 	OvGfxInfo.isSelected = false;	//defualt is not selected
@@ -44,11 +44,27 @@ void opAddOval::Execute()
 
 	//Create an oval with the above parameters
 	Oval* O = new Oval(P1, P2, OvGfxInfo);
-
+	shap = O;
 	//Get a pointer to the graph
 	Graph* pGr = pControl->getGraph();
 
 	//Add the rectangle to the list of shapes
 	pGr->Addshape(O);
 
+}
+
+void opAddOval::Undo()
+{
+	Graph* g;
+	GUI* P = pControl->GetUI();
+	g = pControl->getGraph();
+	g->Undo_Shape();
+}
+
+void opAddOval::Redo()
+{
+	Graph* g;
+	GUI* P = pControl->GetUI();
+	g = pControl->getGraph();
+	g->Redo_shapes(shap);
 }

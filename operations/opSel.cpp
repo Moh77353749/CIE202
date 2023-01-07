@@ -18,3 +18,11 @@ void opSel::Execute()
 	
 
 }
+
+void opSel::Undo()
+{
+}
+
+void opSel::Redo()
+{
+}

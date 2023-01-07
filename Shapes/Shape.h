@@ -19,25 +19,14 @@ protected:
 public:
 	void SetID(int id);
 	virtual bool checkInside(Point p) = 0;
-	
+	//virtual shape* clone(Point p) = 0;
 	
 	shape(GfxInfo shapeGfxInfo);
 	virtual ~shape() {}
 	void SetSelected(bool s);	//select/unselect the shape
 	bool IsSelected() const;	//check whether fig is selected
 	string save_colors(color c);
-	string shape::ConvertToString2(color cc)
-	{
-		if (cc == BLACK) return "BLACK";
-		else if (cc == WHITE) return "WHITE";
-		else if (cc == BLUE) return "BLUE";
-		else if (cc == RED) return "RED";
-		else if (cc == YELLOW) return "YELLOW";
-		else if (cc == GREEN) return "GREEN";
-		else if (cc == GREY) return "GREY";
-		else if (cc == LIGHTGOLDENRODYELLOW) return "LIGHTGOLDENRODYELLOW";
-		return "COLOR";
-	}	color GetStrinColor2(string s) const;
+	color GetStrinColor2(string s) const;
 	virtual void Draw(GUI* pUI) const  = 0 ;		//Draw the shape
 	
 	void ChngDrawClr(color Dclr);	//changes the shape's drawing color

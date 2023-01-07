@@ -138,7 +138,6 @@
     <ClCompile Include="operations\opDelete.cpp">
       <Filter>Operations</Filter>
     </ClCompile>
-    <ClCompile Include="opsave.cpp" />
     <ClCompile Include="operations\opAddCirc.cpp">
       <Filter>Operations</Filter>
     </ClCompile>
@@ -184,7 +183,22 @@
     <ClCompile Include="operations\opSel.cpp">
       <Filter>Operations</Filter>
     </ClCompile>
-    <ClCompile Include="opMDel.cpp">
+    <ClCompile Include="CMUgraphicsLib\colors.cpp">
+      <Filter>GraphicsLib</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opMDel.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opsave.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opSend2back.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opUndo.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opRedo.cpp">
       <Filter>Operations</Filter>
     </ClCompile>
   </ItemGroup>
@@ -282,8 +296,6 @@
     <ClInclude Include="operations\opDelete.h">
       <Filter>Operations</Filter>
     </ClInclude>
-    <ClInclude Include="operations\opselect.h" />
-    <ClInclude Include="opsave.h" />
     <ClInclude Include="operations\opAddCirc.h">
       <Filter>Operations</Filter>
     </ClInclude>
@@ -332,7 +344,16 @@
     <ClInclude Include="operations\opSel.h">
       <Filter>Operations</Filter>
     </ClInclude>
-    <ClInclude Include="opMDel.h">
+    <ClInclude Include="operations\opUndo.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opRedo.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opsave.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opMDel.h">
       <Filter>Operations</Filter>
     </ClInclude>
   </ItemGroup>

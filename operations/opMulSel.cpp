@@ -9,10 +9,27 @@ void opMulSel::Execute()
 	Point P1;
 	Graph* g;
 	GUI* P = pControl->GetUI();
-	P->PrintMessage("Select feature is Active: Click at figure");
+	P->PrintMessage(" Multi-Select feature is Active: Click at figure");
 	P->GetPointClicked(P1.x, P1.y);
-	P->ClearStatusBar();
+	/*
+		P->ClearStatusBar();
 	g = pControl->getGraph();
-	shape* s = g->GetMshape(P1);
+	shape* s = g->GetMshape(P1);*/
 
+	
+	while (!(P1.x > 1120 && P1.x < 1210 && P1.y>0 && P1.y < 50))
+	{
+		P->GetPointClicked(P1.x, P1.y);
+		P->ClearStatusBar();
+		g = pControl->getGraph();
+		g->GetMshape(P1);
+	}
+}
+
+void opMulSel::Undo()
+{
+}
+
+void opMulSel::Redo()
+{
 }
