@@ -15,9 +15,7 @@ Rect(Point , Point, GfxInfo shapeGfxInfo );
 	bool checkInside(Point p) override;
 	void Save(ofstream& OutFile) override;
 	virtual void Load(ifstream& Infile);
-	virtual string GetF()const;
-
-
+	shape* Clone(Point c) override;
 	virtual ~Rect();
 	virtual void Draw(GUI* pUI) const;
 };

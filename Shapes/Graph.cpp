@@ -22,10 +22,8 @@ Graph::~Graph()
 void Graph::Addshape(shape* pShp)
 {
 
-	//Add a new shape to the shapes vector
+	//Add a new shape to the shapes vecto`r
 	shapesList.push_back(pShp);	
-	//cont->setFigList(pShp);
-	//cont->AddFigure(pShp);
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Draw all shapes on the user interface
@@ -101,20 +99,35 @@ void Graph::Delshape()
 	}
 }
 
+void Graph::CopyShape()
+{
+	for (int i = 0; i < shapesList.size(); i++) {
+		if ((shapesList[i]->IsSelected()) == TRUE) {
+			shapesList[i]->SetSelected(1);
+			selectedShape = shapesList[i];
+			//shapesList.erase(shapesList.begin() + i);
+			break;
+		}
+		else 
+		{
+			shapesList[i]->SetSelected(0);
+
+		}
+
+		
+	}
+}
+void Graph::PasteShape()
+{
+	shape* p = selectedShape;
+	Addshape(p);
+}
+
 void Graph::fill(color c)
 {
 	for (int i = 0; i < shapesList.size(); i++) {
 		if ((shapesList[i]->IsSelected() ==TRUE )) {
 			shapesList[i]->ChngFillClr(c);
-		}
-	}
-}
-
-void Graph::shide(bool h)
-{
-	for (int i = 0; i < shapesList.size(); i++) {
-		if ((shapesList[i]->IsSelected() == TRUE)) {
-			shapesList[i]->Hide(h);
 		}
 	}
 }

@@ -27,6 +27,17 @@ bool Circ::checkInside(Point p)
 	
 }
 
+shape* Circ::Clone(Point c)
+{
+
+	Point C2;
+	C2.y = c.y;
+	C2.x = c.x + abs(center.x - radius.x);
+	shape* Temp = new Circ(c, C2, ShpGfxInfo);
+	return Temp;
+
+}
+
 void Circ::Save(ofstream& OutFile)
 {
 	string fill;
@@ -56,14 +67,11 @@ void Circ::Load(ifstream& Infile)
 
 }
 
-string Circ::GetF() const
-{
-	return "circle";
-}
-
 
 Circ::~Circ()
-{}
+{
+
+}
 
 void Circ::Draw(GUI* pUI) const
 {

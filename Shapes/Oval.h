@@ -21,8 +21,6 @@ public:
 	virtual ~Oval();
 	virtual void Draw(GUI* pUI) const;
 	virtual void Load(ifstream& Infile);
-	virtual string GetF()const;
-
 };
 
 

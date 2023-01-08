@@ -27,6 +27,29 @@ bool Tri::checkInside(Point p)
 
 }
 
+shape* Tri::Clone(Point p)
+{
+	Point NewC1, NewC2, NewC3, midpoint;
+	NewC1 = p;
+
+	int xdistanceC2, ydistanC2;
+	xdistanceC2 = (Corner1.x - Corner2.x);
+	ydistanC2 = (Corner1.y - Corner2.y);
+	int xdistanceC2, ydistanceC2;
+	NewC2.x = NewC1.x - (xdistanceC2);
+	NewC2.y = NewC1.y - (ydistanceC2);
+
+	int xdistanceC3, ydistanC3;
+	xdistanceC3 = (Corner1.x - Corner3.x);
+	ydistanC3 = (Corner1.y - Corner3.y);
+
+	NewC3.x = NewC1.x - (xdistanceC3);
+	NewC3.y = NewC1.y - (ydistanC3);
+
+	shape* Temp = new Tri(NewC1, NewC2, NewC3, ShpGfxInfo);
+	return Temp;
+}
+
 
 
 
@@ -63,11 +86,6 @@ void Tri::Load(ifstream& Infile)
 	}
 	ShpGfxInfo.isSelected = false;
 
-}
-
-string Tri::GetF() const
-{
-	return "Triangle";
 }
 
 Tri::~Tri()

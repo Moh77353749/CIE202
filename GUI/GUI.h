@@ -54,6 +54,9 @@ class GUI
 		ICON_brod,
 		ICON_DELETE,
 		ICON_MDEL,
+		ICON_COPY,
+		ICON_CUT,
+		ICON_PASTE,
 		//TODO: Add more icons names here
 		ICON_Send,
 		ICON_MSEL,
@@ -70,15 +73,6 @@ class GUI
 		//Note: Icons are ordered here as they appear in menu
 		//If you want to change the menu icons order, change the order here
 		ICON_HIDE,
-		ICON_DRAW,
-		ICON_COLORMATCH,
-		ICON_SHAPEMATCH,
-		ICON_COLORSHAPEMATCH,
-		ICON_SELP,
-		ICON_EXITP,
-		ICON_UNHIDE,
-		
-		
 
 		//TODO: Add more icons names here
 
@@ -124,8 +118,8 @@ public:
 
 	// Output Functions  ---------------------------
 	window* CreateWind(int, int, int, int) const; //creates the application window
-	void CreateDrawToolBar() ;	//creates Draw mode toolbar & menu
-	void CreatePlayToolBar() ;	//creates Play mode toolbar & menu
+	void CreateDrawToolBar();	//creates Draw mode toolbar & menu
+	void CreatePlayToolBar();	//creates Play mode toolbar & menu
 	void CreateStatusBar() const;
 	void ClearToolBar() const;
 	void drawcolor();
@@ -152,11 +146,8 @@ public:
 	int getCrntPenWidth() const;
 	string ReadFileName(string msg);
 	//void Draw_Image(string name, Point P, int W, int H);
-	bool InDrawingArea(int x, int y) const;
+
 	void PrintMessage(string msg) const;	//Print a message on Status bar
-	void setguimodedraw();
-	void setguimodeplay();
-	void DrawImage(string Image)const;
 
 	//void SetSelected(bool s);
 	

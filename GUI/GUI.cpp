@@ -12,9 +12,9 @@ GUI::GUI()
 	wy = 5;
 
 
-	StatusBarHeight = 60;
-	ToolBarHeight = 60;
-	MenuIconWidth = 60;
+	StatusBarHeight = 30;
+	ToolBarHeight = 30;
+	MenuIconWidth = 30;
 
 	DrawColor = BLUE;	//default Drawing color
 	FillColor = GREEN;	//default Filling color
@@ -28,7 +28,7 @@ GUI::GUI()
 	//Create the output window
 	pWind = CreateWind(width, height, wx, wy);
 	//Change the title
-	pWind->ChangeTitle("               PLAY WITH PAIN            ");
+	pWind->ChangeTitle("- - - - - - - - - - PAINT ^ ^ PLAY - - - - - - - - - -");
 
 	CreateDrawToolBar();
 	drawcolor();
@@ -115,63 +115,30 @@ operationType GUI::GetUseroperation() const
 			case ICON_EXIT: return EXIT;
 			case ICON_Send: return SEND_BACK;
 			case ICON_MSEL: return MSelect;
+			case ICON_COPY: return ccopy;
+			case ICON_CUT: return ccut;
+			case ICON_PASTE:  return cpaste;
 			case ICON_CHNG_FILL_CLR: return CHNG_FILL_CLR;
-			
 			default: return EMPTY;	//A click on empty place in desgin toolbar
 			}
-
-		}
-					//[2] User clicks on the drawing area
-
-		if (y >= ToolBarHeight && y < height - StatusBarHeight)
-		{
-			return DRAWING_AREA;
 		}
 
-				//[3] User clicks on the status bar
-		if (y >= height - ToolBarHeight && y < height)
-		{
-			return STATUS;
-		}
-
-	}
-		
-	
-	else if (InterfaceMode == MODE_PLAY)	//GUI in the DRAW mode
-	{
-		//[1] If user clicks on the Toolbar
-		if (y >= 0 && y < ToolBarHeight)
-		{
-
-			int ClickedIconOrder = (x / MenuIconWidth);
-
-
-			switch (ClickedIconOrder)
-			{
-			case ICON_DRAW: return TO_DRAW;
-			case ICON_COLORMATCH:  return COLORMATCH;
-			case ICON_SHAPEMATCH: return SAHPEMATCH;
-			case ICON_COLORSHAPEMATCH: return COLORSHAPEMATCH;
-			case ICON_HIDE: return HIDE;
-			case ICON_UNHIDE: return UNHIDE;
-			case ICON_SELP: return SELECT;
-			case ICON_EXITP: return  EXIT;
-			default: return EMPTY;
-			}
-		}
+		//[2] User clicks on the drawing area
 		if (y >= ToolBarHeight && y < height - StatusBarHeight)
 		{
 			return DRAWING_AREA;
 		}
 
 		//[3] User clicks on the status bar
-		if (y >= height - ToolBarHeight && y < height)
-		{
-			return STATUS;
-		}
+		return STATUS;
 	}
-
-	
+	else	//GUI is in PLAY mode
+	{
+		///TODO:
+		//perform checks similar to Draw mode checks above
+		//and return the correspoding operation
+		return TO_PLAY;	//just for now. This should be updated
+	}
 
 }
 ////////////////////////////////////////////////////
@@ -240,6 +207,9 @@ void GUI::CreateDrawToolBar()
 	MenuIconImages[ICON_brod] = "images\\MenuIcons\\pen.JPG";
 	MenuIconImages[ICON_LOAD] = "images\\MenuIcons\\Menu_Download.JPG";
 	MenuIconImages[ICON_SAVE] = "images\\MenuIcons\\Menu_Save.JPEG";
+	MenuIconImages[ICON_COPY] = "images\\MenuIcons\\copy.JPEG";
+	MenuIconImages[ICON_CUT] = "images\\MenuIcons\\cut.JPEG";
+	MenuIconImages[ICON_PASTE] = "images\\MenuIcons\\paste.JPEG";
 	MenuIconImages[ICON_EXIT] = "images\\MenuIcons\\Menu_Exit.JPEG";
 	MenuIconImages[ICON_OVAL] = "images\\MenuIcons\\Menu_OVAL.jpg";
 	MenuIconImages[ICON_PLAY] = "images\\MenuIcons\\Menu_Play.jpg";
@@ -263,23 +233,15 @@ void GUI::CreateDrawToolBar()
 //////////////////////////////////////////////////////////////////////////////////////////
 
 
-void GUI::CreatePlayToolBar()
+void GUI::CreatePlayToolBar() 
 {
 	InterfaceMode = MODE_PLAY;
 
 	string MenuIconImages[PLAY_ICON_COUNT];
-
 	MenuIconImages[ICON_HIDE] = "images\\MenuIcons\\Play_hide.jpg";
-	MenuIconImages[ICON_DRAW] = "images\\MenuIcons\\Menu_Draw.jpg";
-	MenuIconImages[ICON_COLORMATCH]= "images\\MenuIcons\\Play_ColorM.jpg";
-	MenuIconImages[ICON_SHAPEMATCH] = "images\\MenuIcons\\Play_ShapeM.JPEG";
-	MenuIconImages[ICON_COLORSHAPEMATCH] = "images\\MenuIcons\\Play_ColorShapeM.jpg";
-	MenuIconImages[ICON_EXITP] = "images\\MenuIcons\\Menu_Exit.JPEG";
-	MenuIconImages[ICON_UNHIDE] = "images\\MenuIcons\\Play_hide.jpg";
-	MenuIconImages[ICON_SELP] = "images\\MenuIcons\\Menu_Sel.JPEG";
 
 
-	for (int i = 0; i < PLAY_ICON_COUNT; i++)
+	for (int i = 0; i < DRAW_ICON_COUNT; i++)
 		pWind->DrawImage(MenuIconImages[i], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
 
 	//Draw a line under the toolbar
@@ -308,11 +270,6 @@ void GUI::Draw_Image( string name, Point P, int W, int H)
 */
 
 
-bool GUI::InDrawingArea(int x, int y) const
-{
-	return (y > ToolBarHeight && y < (height - StatusBarHeight));
-}
-
 void GUI::PrintMessage(string msg) const	//Prints a message on status bar
 {
 	ClearStatusBar();	//First clear the status bar
@@ -321,21 +278,6 @@ void GUI::PrintMessage(string msg) const	//Prints a message on status bar
 	pWind->SetFont(24, BOLD, BY_NAME, "Arial");
 	pWind->DrawString(10, height - (int)(0.75 * StatusBarHeight), msg);
 }
-void GUI::setguimodedraw()
-{
-	InterfaceMode = MODE_DRAW;
-}
-void GUI::setguimodeplay()
-{
-	InterfaceMode = MODE_PLAY;
-}
-void GUI::DrawImage(string Image) const
-{
-	{
-		pWind->DrawImage(Image, 0, ToolBarHeight + 1, width, height - ToolBarHeight - StatusBarHeight);
-	}
-}
-
 //////////////////////////////////////////////////////////////////////////////////////////
 
 void GUI::setCrntDrawColor(color BLUE)
@@ -358,7 +300,10 @@ color GUI::getCrntDrawColor() const	//get current drwawing color
 //////////////////////////////////////////////////////////////////////////////////////////
 
 //Return a pointer to the output
-
+GUI* controller::GetOutput() const
+{
+	return pUI;
+}
 
 
 color GUI::getCrntFillColor() const	//get current filling color

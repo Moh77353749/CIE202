@@ -41,6 +41,24 @@ void Line::Save(ofstream& OutFile)
 	
 }
 
+shape* Line::Clone(Point c)
+{
+	Point NewC1, NewC2, midpoint;
+	midpoint.x = ((Corner1.x + Corner2.x) / 2);
+	midpoint.y = ((Corner1.y + Corner2.y) / 2);
+	int xdistance, ydistance;
+	xdistance = (midpoint.x - Corner1.x);
+	ydistance = (midpoint.y - Corner1.y);
+	NewC1.x = c.x - (xdistance);
+	NewC1.y = c.y - (ydistance);
+	NewC2.x = c.x + (xdistance);
+	NewC2.y = c.y + (ydistance);
+
+
+	shape* Temp = new Line(NewC1, NewC2, ShpGfxInfo);
+	return Temp;
+}
+
 void Line::Load(ifstream& Infile)
 {
 	string drawColor, fillColor;
@@ -58,11 +76,6 @@ void Line::Load(ifstream& Infile)
 	}
 	ShpGfxInfo.isSelected = false;
 
-}
-
-string Line::GetF() const
-{
-	return "Line";
 }
 
 

@@ -13,9 +13,8 @@ public:
 	Line(Point, Point, GfxInfo shapeGfxInfo);
 	bool checkInside(Point p) override;
 	void Save(ofstream& OutFile) override;
+	shape* Clone(Point c);
 	virtual void Load(ifstream& Infile);
-	virtual string GetF()const;
-
 	virtual ~Line();
 	virtual void Draw(GUI* pUI) const;
 	

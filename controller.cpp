@@ -4,11 +4,9 @@
 #include "operations\opAddTri.h"
 #include "operations\Exit.h"
 #include "operations\ToPlay.h"
-#include "operations\ToDraw.h"
 #include "operations\addSqu.h"
 #include "operations\opAddOval.h"
 #include "operations/opMulSel.h"
-#include"CMUgraphicsLib/colors.h"
 #include "operations/opMDel.h"
 #include "operations/opsave.h"
 #include "operations/opSend2back.h"
@@ -21,23 +19,9 @@
 #include "operations/load.h"
 #include "operations/opDelete.h"
 #include "Shapes/Graph.h"
-#include "Shapes\Shape.h"
-#include <stdlib.h>     
-#include <time.h>
-#include<cstdlib>
-#include <iomanip>
-#include "Shapes/Circ.h"
-#include "Shapes/Line.h"
-#include"Shapes/Squ.h"
-#include"Shapes/Oval.h"
-#include"Shapes/Rect.h"
-#include"operations/PlayColorMatch.h"
-#include"operations/PlayShapeColorMatch.h"
-#include"operations/PlayShapeMatch.h"
-#include"operations/hide.h"
-#include "operations/unhide.h"
-
-
+#include"Copy.h"
+#include"Cut.h"
+#include"Paste.h"
 
 
 
@@ -47,11 +31,7 @@ controller::controller()
 	pGraph = new Graph;
 	pGUI = new GUI;	//Create GUI object
 	
-	FigCount = 0;
-	for (int i = 0; i < MaxFigCount; i++)
-	{
-		FigList[i] = NULL;
-	}
+	
 
 }
 
@@ -111,7 +91,15 @@ operation* controller::createOperation(operationType OpType)
 		case DRAW_OVAL:
 			pOp = new opAddOval(this);
 			break;
-
+		case ccopy:
+			pOp = new opCopy (this);
+			break;
+		case ccut:
+			pOp = new Cut (this);
+			break;
+		case cpaste:
+			pOp = new opPaste (this);
+			break;
 		case CHNG_PEN_WID:
 			pOp = new changePenWidth(this);
 			break;
@@ -124,31 +112,22 @@ operation* controller::createOperation(operationType OpType)
 		case actionch:
 			pOp = new ActionChClr(this);
 			break;
-		case TO_PLAY: pOp = new ToPlay(this);
 			break;
-		case TO_DRAW: pOp = new ToDraw(this);
+		case TO_PLAY:
+			pOp = new ToPlay(this);
 			break;
-		case MSelect: pOp = new opMulSel(this);
+		case MSelect:
+			pOp = new opMulSel(this);
 			break;
 		case MDelete:
 			pOp = new opMDel(this);
 			break;
 		case EXIT:
 			pOp = new Exit(this);
+			///create Exitoperation here
 			break;
 		case SEND_BACK:
 			pOp = new opSend2back(this);
-			break;
-		case COLORMATCH: pOp = new PlayColorMatch(this);
-			break;
-		case SAHPEMATCH: pOp = new PlayShapeMatch(this);
-			break;
-		case COLORSHAPEMATCH: pOp = new PlayShapeColorMatch(this);
-			break;
-		case HIDE: pOp = new hide(this);
-			break;
-		case UNHIDE: pOp = new unhide(this);
-			break;
 		case STATUS:	//a click on the status bar ==> no operation
 			break;
 	}
@@ -186,22 +165,6 @@ color controller::ConvertToColor(string s)
 	return GREY;
 }
 
-string controller::ConvertToString(color c)
-{
-	c = pUI->getCrntDrawColor();
-	if (c == RED) return "RED";
-	if (c == BLUE) return "BLUE";
-	if (c == BLACK) return "BLACK";
-	if (c == WHITE) return "WHITE";
-	if (c == GREEN) return "GREEN";
-	if (c == DARKRED) return "DARKRED";
-	if (c == LIGHTBLUE) return "LIGHTBLUE";
-	if (c == PINK) return "PINK";
-	if (c == ORANGE) return "ORANGE";
-	if (c == YELLOW) return "YELLOW";
-	return "InValid";
-}
-
 
 //==================================================================================//
 //							Interface Management Functions							//
@@ -226,254 +189,10 @@ Graph* controller::getGraph() const
 	return pGraph;
 }
 
-shape* controller::GetFigure(int x, int y) const
-{
-	Point P={x,y};
-	P.x = x; P.y = y;
-	for (int i = FigCount - 1; i >= 0; i--)
-		if (FigList[i]->checkInside(P) && !FigList[i]->IsHidden())
-			return FigList[i];
-	return NULL;
-}
 shape* controller::GetObjSEL()
 {
 	return SLObj;
 }
-string controller::RandFig(int& Count) const
-{
-	Count = 0;
-	int Rand;
-	string Figure;
-
-	if (FigCount != 0)
-	{
-		if (FigCount != 1)
-		{
-			//Randomly choose The Figure
-			Rand = rand() % FigCount;
-			Figure = FigList[Rand]->GetF();
-			for (int i = 0; i < FigCount; i++)
-			{
-				if (FigList[Rand]->GetF() == FigList[i]->GetF())
-				{
-					Count++;
-				}
-			}
-		}
-		else
-		{
-			Figure = FigList[0]->GetF();
-			Count = 1;
-		}
-		return Figure;
-	}
-	return "Empty";
-}
-
-string controller::RandShp(int& Count) const
-{
-	return string();
-}
-
-color controller::RandClr(int& Count) const
-{
-	Count = 0;
-	int Rand;
-	color Color;
-
-	if (FigCount != 0)
-	{
-		//Check if There are any Figure That have a Filling Color or There Any Line
-		for (int i = 0; i < FigCount; i++)
-		{
-			if (FigList[i]->IsFilled() || dynamic_cast<Line*>(FigList[i]))
-				break;
-			else if (i == FigCount - 1)
-				return Empty;
-		}
-
-
-		//Randomly choose The Figure
-		if (FigCount != 1)
-		{
-			do {
-				Rand = rand() % FigCount;
-			} while (!FigList[Rand]->IsFilled() && !dynamic_cast<Line*>(FigList[Rand]));
-
-			Color = FigList[Rand]->GetC();
-			for (int i = 0; i < FigCount; i++)
-			{
-				if (FigList[Rand]->GetC() == FigList[i]->GetC())
-				{
-					Count++;
-				}
-			}
-		}
-		else
-		{
-			Color = FigList[0]->GetC();
-			Count = 1;
-		}
-		return Color;
-	}
-	return Empty;
-}
-
-string controller::RandFigClr(int& Count, color& Color) const
-{
-	if (FigCount != 0)
-	{
-		Count = 0;
-		int Rand;
-		string Figure;
-
-		//Check if There are any Figure That have a Filling Color or There Any Line
-		for (int i = 0; i < FigCount; i++)
-		{
-			if (FigList[i]->IsFilled() || dynamic_cast<Line*>(FigList[i]))
-				break;
-			else if (i == FigCount - 1)
-				return "Empty";
-		}
-
-		//Randomly choose The Figure
-		if (FigCount != 1)
-		{
-			do {
-				Rand = rand() % FigCount;
-			} while (!FigList[Rand]->IsFilled() && !dynamic_cast<Line*>(FigList[Rand]));
-
-			Color = FigList[Rand]->GetC();
-			Figure = FigList[Rand]->GetF();
-			for (int i = 0; i < FigCount; i++)
-			{
-				if (FigList[Rand]->GetC() == FigList[i]->GetC() && FigList[Rand]->GetF() == FigList[i]->GetF())
-				{
-					Count++;
-				}
-			}
-		}
-		else
-		{
-			Color = FigList[0]->GetC();
-			Figure = FigList[0]->GetF();
-			Count = 1;
-		}
-		return Figure;
-	}
-	return "Empty";
-}
-
-void controller::ShowAllFigures()
-{
-	for (int i = 0; i < FigCount; i++)
-		if (FigList[i]->IsHidden())
-			FigList[i]->Hide(false);
-}
-
-void controller::ClearSFigList()
-{
-	for (int i = 0; i < SFigCount; i++)
-	{
-		SFigList[i]->SetSelected(false);
-		SFigList[i] = NULL;
-	}
-
-	SFigCount = 0;
-}
-void  controller::SelectFig(shape* pFig) {
-
-	if (SFigCount < MaxFigCount)
-	{
-		for (int i = 0; i < SFigCount; i++)
-			if (SFigList[i]->IsSelected())
-				SFigList[i]->SetSelected(false);
-
-		SFigList[SFigCount++] = pFig;
-		SFigList[SFigCount - 1]->SetSelected(true);
-		SFigList[SFigCount - 1]->SetSelected(true);
-	}
-
-	//Arrange The Selected Figure List Base On The Figure List
-	if (SFigCount > 1)
-	{
-		int NewFigIndex, OldIndex;
-		int Flag1 = SFigCount - 1;
-		int Flag2 = SFigCount - 2;
-		shape* Temp;
-		while (Flag2 >= 0)
-		{
-			for (int j = 0; j < FigCount; j++)
-			{
-				if (SFigList[Flag1] == FigList[j])
-					NewFigIndex = j;
-				if (SFigList[Flag2] == FigList[j])
-					OldIndex = j;
-			}
-			if (NewFigIndex < OldIndex)
-			{
-				Temp = SFigList[Flag2];
-				SFigList[Flag2] = SFigList[Flag1];
-				SFigList[Flag1] = Temp;
-				Flag1 = Flag2;
-			}
-			Flag2--;
-		}
-	}
-}
-
-void controller::UnSelectedFig(shape* pFig)
-{
-	bool Flag = false;
-
-	for (int i = 0; i < SFigCount; i++)
-	{
-		if (SFigList[i] == pFig) {
-			Flag = true;
-			SFigList[i]->SetSelected(false);
-			SFigList[i]->SetSelected(false);
-			SFigList[i] = NULL;
-			SFigCount--;
-		}
-
-		if (Flag)
-		{
-			SFigList[i] = SFigList[i + 1];
-		}
-	}
-	SFigList[SFigCount] = NULL;
-
-}
-
-void controller::DeleteFigure(shape* Fg)
-{
-	bool Flag = false;
-	UnSelectedFig(Fg);
-	for (int i = 0; i < FigCount; i++) {
-		if (Fg == FigList[i]) {
-			Flag = true;
-			delete FigList[i];
-			FigList[i] = NULL;
-			FigCount--;
-		}
-		if (Flag) {
-			FigList[i] = FigList[i + 1];
-		}
-	}
-	FigList[FigCount] = NULL;
-}
-void controller::setFigList(shape* Fg)
-{
-	if (FigCount < MaxFigCount && Fg != NULL)
-		FigList[FigCount++] = Fg;
-	if (FigCount == 1)
-		Fg->SetID(1);
-	else
-		Fg->SetID(FigList[FigCount - 2]->GetID() + 1);
-}
-
-
-
 void controller::SetObjSEL(shape* SEL)
 {
 	SLObj = SEL;
@@ -511,8 +230,7 @@ void controller::Run()
 		if (pOpr)
 		{
 			pOpr->Execute();//Execute
-			delete pOpr;	//operation is not needed any more ==> delete it
-			pOpr = nullptr;
+			
 		}
 
 		//Update the interface
@@ -521,3 +239,47 @@ void controller::Run()
 	} while (OpType != EXIT);
 
 }
+int controller::GetFigCount()
+{
+	return FigCount;
+}
+
+void controller::GetFigList(shape* FigNewList[])
+{
+	for (int i = 0; i < 200; i++) {
+		FigNewList[i] = FigList[i];
+	}
+}
+
+
+void controller::setNumCopiedFiglist(shape* f1)
+{
+	for (int i = 0; i < 200; i++) {
+		if (FigList[i] == f1)
+			NumCopiedfig++;
+	}
+}
+
+int controller::getNumCopiedFiglist()
+{
+	return NumCopiedfig;
+}
+
+
+void controller::FigNull(shape* pF)
+{
+	bool f = 0;
+	for (int i = 0; i < 200; i++) {
+		if (FigList[i] == pF) {
+			FigList[i] = nullptr;
+			f = 1;
+		}
+		if (f && i + 1 != 200) {
+			FigList[i] = FigList[i + 1];
+		}
+	}
+	FigCount--;
+	pGUI->ClearDrawArea();
+	UpdateInterface();
+}
+

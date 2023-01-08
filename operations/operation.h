@@ -2,7 +2,7 @@
 #include "..\DefS.h"
 #include "..\GUI\GUI.h"
 #include <vector>
-#include <time.h>
+
 class controller; //forward class declaration
 
 
@@ -11,7 +11,7 @@ class operation
 {
 protected:
 	controller *pControl;	//operations needs control to do their job
-	//Graph* pG;
+	
 
 public:
 

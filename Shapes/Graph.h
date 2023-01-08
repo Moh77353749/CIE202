@@ -28,8 +28,9 @@ public:
 	void GetMshape(Point);
 	void DelMshape();
 	void Delshape();
+	void CopyShape();
+	void PasteShape();
 	void fill(color c);
-	void shide(bool h);
 	void bordc(color c);
 	void bordw(int xx);
 	void send2b();//send to back

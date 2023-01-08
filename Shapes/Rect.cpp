@@ -64,10 +64,20 @@ void Rect::Load(ifstream& Infile)
 
 }
 
-string Rect::GetF() const
+shape* Rect::Clone(Point c)
 {
-	return "Rectangle";
+	Point NewC1, NewC2;
+	int rectWidth = abs(Corner1.x - Corner2.x);
+	int rectHigth = abs(Corner1.y - Corner1.y);
+	NewC1.x = c.x - (rectWidth / 2);
+	NewC1.y = c.y - (rectHigth / 2);
+	NewC2.x = c.x + (rectWidth / 2);
+	NewC2.y = c.y + (rectHigth / 2);
+	shape* R = new Rect(NewC1, NewC2, ShpGfxInfo);
+	return R;
 }
+	
+
 
 Rect::~Rect()
 {}
