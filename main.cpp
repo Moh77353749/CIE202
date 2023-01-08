@@ -3,7 +3,7 @@
 
 int main()
 {
-
+	srand(time(0));
 	controller Control;
 
 	Control.Run();

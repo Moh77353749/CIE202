@@ -4,7 +4,10 @@ void shape::SetID(int id)
 {
 	ID = id;
 }
-
+int shape::GetID()
+{
+	return ID;
+}
 
 
 shape::shape(GfxInfo shapeGfxInfo)
@@ -78,5 +81,30 @@ void shape::ChngFillClr(color Fclr)
 void shape::ChngBorderWidth(int xx)
 {
 	ShpGfxInfo.BorderWdth = xx;
+}
+
+color shape::GetC()
+{
+	
+	if (GetF() != "Line")
+		return ShpGfxInfo.FillClr;
+	else
+		return ShpGfxInfo.DrawClr;
+}
+
+bool shape::IsFilled()
+{
+	return ShpGfxInfo.isFilled;
+}
+
+bool shape::IsHidden()
+{
+	return Hidden;
+	
+}
+
+void shape::Hide(bool H)
+{
+	Hidden = H;
 }
 

@@ -21,15 +21,11 @@ Graph::~Graph()
 //Add a shape to the list of shapes
 void Graph::Addshape(shape* pShp)
 {
-	//Add a new shape to the shapes vector
-	shapesList.push_back(pShp);
-	//cout << "your shape have been added";
 
-}
-void Graph::add_stack(operation* o)
-{
-	stackUndo.push(o);
-	//cout << stackUndo.size() << endl;
+	//Add a new shape to the shapes vector
+	shapesList.push_back(pShp);	
+	//cont->setFigList(pShp);
+	//cont->AddFigure(pShp);
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Draw all shapes on the user interface
@@ -114,6 +110,15 @@ void Graph::fill(color c)
 	}
 }
 
+void Graph::shide(bool h)
+{
+	for (int i = 0; i < shapesList.size(); i++) {
+		if ((shapesList[i]->IsSelected() == TRUE)) {
+			shapesList[i]->Hide(h);
+		}
+	}
+}
+
 void Graph::bordc(color c)
 {
 	for (int i = 0; i < shapesList.size(); i++) {
@@ -141,47 +146,8 @@ void Graph::send2b()
 			shapesList.erase(shapesList.begin() + i);
 			shapesList.insert(shapesList.begin(), j);
 			break;
-			
 		}
 	}
-}
-
-void Graph::Undo_Actions()
-{
-	if (!stackUndo.empty()) {
-		operation* last = stackUndo.top();
-		last->Undo();
-		
-		//shapesList.pop_back();
-		stackUndo.pop();
-		stackRedo.push(last);
-	}
-	//cout << "el ha'onaaaaaaaaaa";
-
-}
-
-void Graph::Undo_Shape()
-{
-	
-	shapesList.pop_back();
-
-}
-
-void Graph::Redo_Actions()
-{
-	if (!stackRedo.empty()) {
-		operation* last = stackRedo.top();
-		stackRedo.pop();
-		last->Redo();
-		stackUndo.push(last);
-	}
-}
-
-void Graph::Redo_shapes(shape* s)
-{
-	//cout << "redo shapes  ";
-	shapesList.push_back(s);
-	//cout<<shapesList.size()<<endl;
 }
 
 /*void Graph::stickImage(string st)

@@ -60,6 +60,11 @@ void Line::Load(ifstream& Infile)
 
 }
 
+string Line::GetF() const
+{
+	return "Line";
+}
+
 
 Line::~Line()
 {}

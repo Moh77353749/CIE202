@@ -2,9 +2,7 @@
 #include "..\DefS.h"
 #include "..\GUI\GUI.h"
 #include <vector>
-#include <iostream>
-using namespace std;
-
+#include <time.h>
 class controller; //forward class declaration
 
 
@@ -13,13 +11,11 @@ class operation
 {
 protected:
 	controller *pControl;	//operations needs control to do their job
-	
-	
+	//Graph* pG;
+
 public:
 
-	operation(controller* pCont) {
-		pControl = pCont; 
-	}	//constructor
+	operation(controller *pCont) { pControl = pCont; }	//constructor
 	virtual ~operation(){}
 
 	//Execute operation (code depends on operation type)

@@ -7,9 +7,11 @@ ToPlay::ToPlay(controller* pCont) :operation(pCont)
 void ToPlay::Execute()
 {
 	GUI* pUI = pControl->GetUI();
+	pControl->ClearSFigList();
+	pUI->PrintMessage("Switched to Play Mode ");
+	pUI->setguimodeplay();
 	pUI->ClearToolBar();
 	pUI->CreatePlayToolBar();
-	pUI->PrintMessage("Switched to Play Mode ");
 }
 
 void ToPlay::Undo()

@@ -65,6 +65,11 @@ void Tri::Load(ifstream& Infile)
 
 }
 
+string Tri::GetF() const
+{
+	return "Triangle";
+}
+
 Tri::~Tri()
 {}
 

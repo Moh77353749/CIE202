@@ -15,6 +15,8 @@ public:
 	
 	void Save(ofstream& OutFile) override;
 	virtual void Load(ifstream& Infile);
+	virtual string GetF()const;
+
 	virtual ~Tri();
 	virtual void Draw(GUI* pUI) const;
 

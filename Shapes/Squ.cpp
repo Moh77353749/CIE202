@@ -19,7 +19,8 @@ void Squ::Draw(GUI* pUI) const
 
 bool Squ::checkInside(Point p)
 {
-	if (((p.x > Corner1.x) && (p.x < Corner2.x)) && ((p.y > Corner1.y) && (p.y < Corner2.y)))
+	if (((p.x > Corner1.x) && (p.x < Corner2.x)) &&
+		((p.y > Corner1.y) && (p.y < Corner2.y)))
 	{
 		return TRUE;
 	}
@@ -55,4 +56,9 @@ void Squ::Load(ifstream& Infile)
 	}
 	ShpGfxInfo.isSelected = false;
 
+}
+
+string Squ::GetF() const
+{
+	return "Square";
 }

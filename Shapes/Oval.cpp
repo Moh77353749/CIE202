@@ -61,3 +61,8 @@ void Oval::Load(ifstream& Infile)
 
 }
 
+string Oval::GetF() const
+{
+	return "Oval";
+}
+

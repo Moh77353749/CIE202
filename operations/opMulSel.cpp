@@ -17,7 +17,7 @@ void opMulSel::Execute()
 	shape* s = g->GetMshape(P1);*/
 
 	
-	while (!(P1.x > 1120 && P1.x < 1210 && P1.y>0 && P1.y < 50))
+	while (!(P1.x > 1020 && P1.x < 1135 && P1.y>0 && P1.y < 50))
 	{
 		P->GetPointClicked(P1.x, P1.y);
 		P->ClearStatusBar();

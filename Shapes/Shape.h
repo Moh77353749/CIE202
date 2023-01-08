@@ -13,13 +13,16 @@ protected:
 	int ID;		//Each shape has an ID
 	bool Selected;	//true if the figure is selected.
 	GfxInfo ShpGfxInfo;	//shape graphis info
+	bool Hidden;             //true if the figure is Picked in the play mode
+
 	vector<string> propers;
 	/// Add more parameters if needed.
 
 public:
 	void SetID(int id);
+	int GetID();
 	virtual bool checkInside(Point p) = 0;
-	//virtual shape* clone(Point p) = 0;
+	
 	
 	shape(GfxInfo shapeGfxInfo);
 	virtual ~shape() {}
@@ -45,7 +48,11 @@ public:
 
 	virtual void Save(ofstream& OutFile) = 0;	//Save the shape parameters to the file
 	virtual void Load(ifstream &Infile) = 0;	//Load the shape parameters to the file
-
+	virtual string GetF()const = 0;
+	color GetC();
+	bool IsFilled();
+	bool IsHidden();
+	void Hide(bool H);
 	//virtual void PrintInfo(Output* pOut) = 0;	//print all shape info on the status bar
 };
 

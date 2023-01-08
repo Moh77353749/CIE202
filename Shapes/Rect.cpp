@@ -32,8 +32,6 @@ bool Rect::checkInside(Point p)
 
 
 
-
-
 /* order of the save, 
 shape type,id,P1.x, P1.y,P2.x,P2.y, boarder width,draw color, fill color*/
 void Rect::Save(ofstream& OutFile)
@@ -64,6 +62,11 @@ void Rect::Load(ifstream& Infile)
 	}
 	ShpGfxInfo.isSelected = false;
 
+}
+
+string Rect::GetF() const
+{
+	return "Rectangle";
 }
 
 Rect::~Rect()

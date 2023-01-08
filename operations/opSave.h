@@ -8,7 +8,7 @@ private:
 public:
 	opsave(controller* pCont);
 	virtual void Execute();
-	void Undo() override;
-	void Redo() override;
+	void Undo() ;
+	void Redo();
 };
 

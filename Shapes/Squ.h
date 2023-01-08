@@ -15,6 +15,8 @@ public:
 	bool checkInside(Point p) override;
 	void Save(ofstream& OutFile) override;	
 	virtual void Load(ifstream& Infile);
+	virtual string GetF()const;
+
 
 
 };
