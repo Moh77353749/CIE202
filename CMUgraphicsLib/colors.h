@@ -7,6 +7,10 @@ This file was last modified on 05.16.1999
 #define COLORS_H
 
 #include "version.h"
+#include <iostream>
+#include <string>
+#include <cstdlib>
+using namespace std;
 
 class color {
 
@@ -23,6 +27,9 @@ class color {
     unsigned char ucGreen;
     unsigned char ucBlue;
 
+    string Color2String()const;
+  void String2Color(string);
+    string ConvertColorToString()const;
 };
 
 bool operator==(color a, color b);
@@ -36,6 +43,7 @@ bool operator!=(color a, color b);
   $XConsortium: rgb.txt,v 10.41 94/02/20 18:39:36 rws Exp 
 
 */
+
 
 const color SNOW = color(255, 250, 250);
 const color GHOSTWHITE = color(248, 248, 255);
@@ -181,6 +189,7 @@ const color DARKCYAN = color(0, 139, 139);
 const color DARKMAGENTA = color(139, 0, 139);
 const color DARKRED = color(139, 0, 0);
 const color LIGHTGREEN = color(144, 238, 144);
+const color Empty = color(1, 1, 1);
 
 
 #endif //COLOR_H

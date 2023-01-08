@@ -8,10 +8,14 @@ opAddRect::opAddRect(controller * pCont):operation(pCont)
 opAddRect::~opAddRect()
 {} 
 
+
+
+
 //Execute the operation
 void opAddRect::Execute() 
 {
 	Point P1, P2;
+
 
 	//Get a Pointer to the Input / Output Interfaces
 	GUI* pUI = pControl->GetUI();
@@ -48,5 +52,14 @@ void opAddRect::Execute()
 
 	//Add the rectangle to the list of shapes
 	pGr->Addshape(R);
+	pControl->setFigList(R);
 
+}
+
+void opAddRect::Undo()
+{
+}
+
+void opAddRect::Redo()
+{
 }

@@ -3,13 +3,10 @@
 
 int main()
 {
-
-	//Create an object of controller
+	srand(time(0));
 	controller Control;
 
 	Control.Run();
-
-	
 	return 0;
 }
 

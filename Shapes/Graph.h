@@ -1,29 +1,39 @@
 #pragma once
 #include "Shape.h"
 #include <fstream>
+#include "..\controller.h"
 #include <vector>
 using namespace std;
 
 //forward decl
 class GUI;	
-
+class controller;
 //A class that is responsible on everything related to shapes
 class Graph
 {
+	controller* cont;
 	GUI* Pin;
-	GUI* Pout;
 private:
 	vector <shape*> shapesList; //a container to hold all shapes							   
 	shape* selectedShape;	//pointer to the currently selected shape
-	int Fc;
-public:										
+	
+public:
+	
 	Graph();
 	~Graph();
 	void setshape(shape* sh);
 	void Addshape(shape* pFig); //Adds a new shape to the shapesList
 	void Draw(GUI* pUI) const;			//Draw the graph (draw all shapes)
-	shape* Getshape(int x, int y) ; //Search for a shape given a point inside the shape
-	
-	//void Save(ofstream& outfile);	//Save all shapes to a file
-	// void load(ifstream& inputfile);	//Load all shapes from a file
+	void Getshape(Point) ; //Search for a shape given a point inside the shape
+	void GetMshape(Point);
+	void DelMshape();
+	void Delshape();
+	void fill(color c);
+	void shide(bool h);
+	void bordc(color c);
+	void bordw(int xx);
+	void send2b();//send to back
+	//void stickImage(string st);
+	void Save_shapes(ofstream& outfile);	//Save all shapes to a file
+	void load(ifstream& inputfile);	//Load all shapes from a file
 };
