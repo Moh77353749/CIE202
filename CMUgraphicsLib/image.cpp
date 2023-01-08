@@ -118,7 +118,6 @@ void image::Open(const char *cpFileName, imagetype itThisType) {
 			ucpImageData[j + 2] = ucpTmp[i];
 			ucpImageData[j + 3] = 0;
 		}
-
 		free(ucpTmp);
 
 		ucTransRed = 0;

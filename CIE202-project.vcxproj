@@ -129,8 +129,6 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\My codes so far\Line.cpp" />
-    <ClCompile Include="..\..\My codes so far\opAddLine.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
     <ClCompile Include="CMUgraphicsLib\image.cpp" />
@@ -169,19 +167,35 @@
     <ClCompile Include="GUI\GUI.cpp" />
     <ClCompile Include="controller.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="operations\ActionChClr.cpp" />
+    <ClCompile Include="operations\addSqu.cpp" />
+    <ClCompile Include="operations\zoom.cpp" />
+    <ClCompile Include="operations\changePenWidth.cpp" />
+    <ClCompile Include="operations\CHNG_PEN_COLOR.cpp" />
+    <ClCompile Include="operations\Exit.cpp" />
+    <ClCompile Include="operations\fillColor.cpp" />
+    <ClCompile Include="operations\load.cpp" />
+    <ClCompile Include="operations\opAddCirc.cpp" />
+    <ClCompile Include="operations\opAddLine.cpp" />
+    <ClCompile Include="operations\opAddOval.cpp" />
     <ClCompile Include="operations\opAddRect.cpp" />
     <ClCompile Include="operations\opAddTri.cpp" />
     <ClCompile Include="operations\opDelete.cpp" />
-    <ClCompile Include="operations\opSave.cpp" />
-    <ClCompile Include="opSelect.cpp" />
+    <ClCompile Include="operations\opSel.cpp" />
+    <ClCompile Include="operations\Resize.cpp" />
+    <ClCompile Include="operations\ToResize.cpp" />
+    <ClCompile Include="operations\ToPlay.cpp" />
+    <ClCompile Include="opsave.cpp" />
+    <ClCompile Include="Shapes\Circ.cpp" />
     <ClCompile Include="Shapes\Graph.cpp" />
+    <ClCompile Include="Shapes\Line.cpp" />
+    <ClCompile Include="Shapes\Oval.cpp" />
     <ClCompile Include="Shapes\Shape.cpp" />
     <ClCompile Include="Shapes\Rect.cpp" />
+    <ClCompile Include="Shapes\Squ.cpp" />
     <ClCompile Include="Shapes\Tri.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\My codes so far\Line.h" />
-    <ClInclude Include="..\..\My codes so far\opAddLine.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />
     <ClInclude Include="CMUgraphicsLib\colors.h" />
@@ -205,17 +219,37 @@
     <ClInclude Include="GUI\GUI.h" />
     <ClInclude Include="controller.h" />
     <ClInclude Include="DEFS.h" />
-    <ClInclude Include="opAddTri.h" />
+    <ClInclude Include="GUI\UI_util.h" />
+    <ClInclude Include="operations\ActionChClr.h" />
+    <ClInclude Include="operations\addSqu.h" />
+    <ClInclude Include="operations\zoom.h" />
+    <ClInclude Include="operations\changePenWidth.h" />
+    <ClInclude Include="operations\CHNG_PEN_COLOR.h" />
+    <ClInclude Include="operations\Exit.h" />
+    <ClInclude Include="operations\fillColor.h" />
+    <ClInclude Include="operations\load.h" />
+    <ClInclude Include="operations\opAddCirc.h" />
+    <ClInclude Include="operations\opAddLine.h" />
+    <ClInclude Include="operations\opAddOval.h" />
     <ClInclude Include="operations\opAddRect.h" />
-    <ClInclude Include="operations\OpDelete.h" />
+    <ClInclude Include="operations\opAddTri.h" />
+    <ClInclude Include="operations\opDelete.h" />
     <ClInclude Include="operations\operation.h" />
-    <ClInclude Include="opSave.h" />
-    <ClInclude Include="opSelect.h" />
+    <ClInclude Include="operations\opSel.h" />
+    <ClInclude Include="operations\opselect.h" />
+    <ClInclude Include="operations\Resize.h" />
+    <ClInclude Include="operations\ToResize.h" />
+    <ClInclude Include="operations\ToPlay.h" />
+    <ClInclude Include="opsave.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Shapes\Circ.h" />
     <ClInclude Include="Shapes\Graph.h" />
+    <ClInclude Include="Shapes\Line.h" />
+    <ClInclude Include="Shapes\Oval.h" />
     <ClInclude Include="Shapes\Shape.h" />
     <ClInclude Include="Shapes\Rect.h" />
-    <ClInclude Include="Tri.h" />
+    <ClInclude Include="Shapes\Squ.h" />
+    <ClInclude Include="Shapes\Tri.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

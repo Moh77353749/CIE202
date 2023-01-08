@@ -1,15 +1,14 @@
 #pragma once
+#include "../operations/operation.h"
 
-#include "operation.h"
-class opSave : public operation
+class opsave : public operation
 {
+private:
 	string file_name;
-	int Fc;
-
 public:
-	opSave(controller* pCont, int F_c);
+	opsave(controller* pCont);
 	virtual void Execute();
-	virtual void Undo();
-	virtual void Redo();
+	void Undo() ;
+	void Redo();
 };
 

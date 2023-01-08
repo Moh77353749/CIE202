@@ -18,7 +18,6 @@ public:
 
 	//Execute operation (code depends on operation type)
 	virtual void Execute() =0;
-
 	//To undo this operation (code depends on operation type)
 	//virtual void Undo()=0;
 

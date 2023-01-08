@@ -10,10 +10,13 @@ class Graph;
 //Main class that manages everything in the application.
 class controller
 {
-	int Fc;
+
+	int FigCount=0;		//Actual number of figures
 	Graph* pGraph;	//pointe to the grapg
 	GUI* pGUI;		//Pointer to UI class
-	GUI* pUI ;
+	GUI* pUI;
+	shape* FigList[200];
+	shape* SLObj = nullptr;
 
 
 	
@@ -27,14 +30,25 @@ public:
 	operationType GetUseroperation() const;
 	
 	operation* createOperation(operationType) ; //Creates an operation
+	color ConvertToColor(string s);
+	void LoadFig();
+	shape* getFigByIndex(int i);
+	void AddFigure(shape* pFig);
+	int GetFigCount();
 	void Run();
 	
 	Graph* getGraph() const;
-	void DeleteObj();
+	void SetObjSEL(shape* SEL);
+	shape* GetObjSEL();
+	//void DeleteObj();
 	// -- Interface Management Functions
 	GUI* GetUI() const; //Return pointer to the UI
 
 	void UpdateInterface() const;	//Redraws all the drawing window	
+
+	GUI* GetInput() const;
+
+	GUI* GetOutput() const;
 
 };
 

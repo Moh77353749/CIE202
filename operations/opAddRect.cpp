@@ -1,5 +1,6 @@
 #include "opAddRect.h"
 #include "..\shapes\Rect.h"
+#include"Resize.h"
 #include "..\controller.h"
 #include "..\GUI\GUI.h"
 
@@ -8,25 +9,26 @@ opAddRect::opAddRect(controller * pCont):operation(pCont)
 opAddRect::~opAddRect()
 {} 
 
+
+
+
 //Execute the operation
 void opAddRect::Execute() 
 {
 	Point P1, P2;
 
+
 	//Get a Pointer to the Input / Output Interfaces
 	GUI* pUI = pControl->GetUI();
-
 	pUI->PrintMessage("New Rectangle: Click at first corner");
 	//Read 1st corner and store in point P1
 	pUI->GetPointClicked(P1.x, P1.y);
-
 	string msg = "First corner is at (" + to_string(P1.x) + ", " + to_string(P1.y) + " )";
 	msg += " ... Click at second corner";
 	pUI->PrintMessage(msg);
 	//Read 2nd corner and store in point P2
 	pUI->GetPointClicked(P2.x, P2.y);
 	pUI->ClearStatusBar();
-
 	//Preapre all rectangle parameters
 	GfxInfo RectGfxInfo;
 	
@@ -50,3 +52,6 @@ void opAddRect::Execute()
 	pGr->Addshape(R);
 
 }
+
+
+
