@@ -22,7 +22,8 @@ struct GfxInfo	//Graphical info common for all shapes (you may add more members)
 	bool isFilled;	//shape Filled or not
 	int BorderWdth;	//Width of shape borders
 	bool isSelected;
-		
+	
+	//true if the shape is selected.
 };
 
 
@@ -33,6 +34,7 @@ class GUI
 	enum GUI_MODE	//Graphical user interface mode
 	{
 		MODE_DRAW,	//Drawing mode (startup mode)
+		MODE_Resize,	//
 		MODE_PLAY	//Playing mode
 	};
 
@@ -51,15 +53,12 @@ class GUI
 		ICON_SEL, 
 		ICON_LOAD,
 		ICON_SAVE,
+		ICON_resize,
 		ICON_brod,
 		ICON_DELETE,
-		ICON_MDEL,
-		ICON_COPY,
-		ICON_CUT,
-		ICON_PASTE,
+		ICON_ZOOMin,
+		ICON_ZOOMout,
 		//TODO: Add more icons names here
-		ICON_Send,
-		ICON_MSEL,
 		ICON_CHNG_FILL_CLR,
 		ICON_CHNG_PEN_WID,
 		ICON_EXIT,		//Exit icon
@@ -67,6 +66,17 @@ class GUI
 		DRAW_ICON_COUNT		//no. of menu icons ==> This should be the last line in this enum
 
 	};
+	enum DrawResizeItems
+	{
+		ICON_QUARTER,
+		ICON_HALF,
+		ICON_DOUBLE,
+		ICON_QUADRUPLE,
+		/*ICON_RESIZEBACK*/
+
+		ICON_COUNT
+	};
+
 
 	enum PlayMenuIcon //The icons of the Play menu (you should add more icons)
 	{
@@ -88,7 +98,7 @@ class GUI
 		StatusBarHeight,	//Status Bar Height
 		ToolBarHeight,		//Tool Bar Height (distance from top of window to bottom line of toolbar)
 		MenuIconWidth;		//Width of each icon in toolbar menu
-
+	float scalingFactor;
 
 	color DrawColor;		//Drawing color
 	color FillColor;		//Filling color
@@ -118,7 +128,9 @@ public:
 
 	// Output Functions  ---------------------------
 	window* CreateWind(int, int, int, int) const; //creates the application window
-	void CreateDrawToolBar();	//creates Draw mode toolbar & menu
+	void CreateDrawToolBar();
+	void CreateResizeToolBar();
+	//creates Draw mode toolbar & menu
 	void CreatePlayToolBar();	//creates Play mode toolbar & menu
 	void CreateStatusBar() const;
 	void ClearToolBar() const;
@@ -143,6 +155,10 @@ public:
 	void ChngBorderWidth(int xx);
 	color ChngDrawClr() const;
 	void setChngDrawClr(color c);
+	float zoomIn()const;
+	float zoomOut()const;
+	void worldToScreen(Point& point);
+	void screenToWorld(Point& point);
 	int getCrntPenWidth() const;
 	string ReadFileName(string msg);
 	//void Draw_Image(string name, Point P, int W, int H);
@@ -153,4 +169,5 @@ public:
 	
 	~GUI();
 };
+
 

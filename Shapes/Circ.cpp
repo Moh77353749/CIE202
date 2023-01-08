@@ -27,24 +27,13 @@ bool Circ::checkInside(Point p)
 	
 }
 
-shape* Circ::Clone(Point c)
-{
-
-	Point C2;
-	C2.y = c.y;
-	C2.x = c.x + abs(center.x - radius.x);
-	shape* Temp = new Circ(c, C2, ShpGfxInfo);
-	return Temp;
-
-}
-
 void Circ::Save(ofstream& OutFile)
 {
 	string fill;
 	string colo = save_colors(ShpGfxInfo.DrawClr);
 
 	if (ShpGfxInfo.isFilled) fill = save_colors(ShpGfxInfo.FillClr);
-	else fill = "NON-FILLED";
+	else fill = "NO_FILL";
 	OutFile << "Circle " << ID << " " << center.x << " " << center.y << " " << radius.x << " " << radius.y << " " << colo << " " << fill << " " << ShpGfxInfo.BorderWdth << endl;
 }
 
@@ -66,12 +55,23 @@ void Circ::Load(ifstream& Infile)
 	ShpGfxInfo.isSelected = false;
 
 }
-
+int Circ::Resize(double scale)
+{
+	/*int length = Corner2.x - Corner1.x;
+	if (Corner1.x + length * scale >= 1300 || Corner1.y + length * scale >= 650
+		|| scale * length <= 20)
+	{
+		return 1;
+	}
+	else
+	{
+		length = scale * length;
+		return 0;
+	}*/
+}
 
 Circ::~Circ()
-{
-
-}
+{}
 
 void Circ::Draw(GUI* pUI) const
 {

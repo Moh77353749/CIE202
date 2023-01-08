@@ -29,7 +29,7 @@ void Oval::Save(ofstream& OutFile)
 	string colo = save_colors(ShpGfxInfo.DrawClr);
 
 	if (ShpGfxInfo.isFilled) fill = save_colors(ShpGfxInfo.FillClr);
-	else fill = "NON-FILLED";
+	else fill = "NO_FILL";
 	OutFile << "Oval " << ID << " " << focal1.x << " " << focal1.y << " " << focal2.x << " " << focal2.y << " " << colo << " " << fill << " " << ShpGfxInfo.BorderWdth << endl;
 
 }
@@ -59,5 +59,20 @@ void Oval::Load(ifstream& Infile)
 	}
 	ShpGfxInfo.isSelected = false;
 
+}
+
+int Oval::Resize(double scale)
+{
+	/*int length = Corner2.x - Corner1.x;
+	if (Corner1.x + length * scale >= 1300 || Corner1.y + length * scale >= 650
+		|| scale * length <= 20)
+	{
+		return 1;
+	}
+	else
+	{
+		length = scale * length;
+		return 0;
+	}*/
 }
 

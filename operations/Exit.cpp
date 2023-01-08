@@ -32,11 +32,3 @@ void Exit::Execute()
 Exit::~Exit(void)
 {
 }
-
-void Exit::Undo()
-{
-}
-
-void Exit::Redo()
-{
-}

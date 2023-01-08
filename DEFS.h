@@ -15,9 +15,8 @@ enum operationType //The operations supported (you can add more if needed)
 	CHNG_FILL_CLR,	//Change the filling color
 	CHNG_BK_CLR,	//Change background color
 	DEL,
-	ccopy,
-	ccut,
-	cpaste,
+	Zoom,
+	Zoomm,
 	CHNG_PEN_WID,//Delete a shape(s)
 	MOVE,			//Move a shape(s)
 	RESIZE,			//Resize a shape(s)
@@ -32,10 +31,13 @@ enum operationType //The operations supported (you can add more if needed)
 	DRAWING_AREA,	//A click on the drawing area
 	STATUS,			//A click on the status bar
 	EMPTY,			//A click on empty place in the toolbar
-	TO_DRAW,		//Switch interface to Draw mode
-	TO_PLAY,		//Switch interface to Play mode
-	MSelect,
-	MDelete
+	TO_DRAW,
+	RESIZE_QUARTER,//Switch interface to Draw mode
+	RESIZE_HALF,
+	RESIZE_DOUBLE,
+	RESIZE_QUADRUPLE,
+	TO_PLAY			//Switch interface to Play mode
+
 	///TODO: Add more operation types (if needed)
 
 };

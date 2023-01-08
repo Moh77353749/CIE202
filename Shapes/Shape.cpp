@@ -21,15 +21,12 @@ bool shape::IsSelected() const
 string shape::save_colors(color c)
 {
 
-	if (c== RED) return "RED";
-	if (c==BLUE) return "BLUE";
-	if (c== WHITE) return "WHITE";
-	if (c== GREEN) return "GREEN";
-	if (c==BLACK) return "BLACK";
-	if (c==YELLOW) return "YELLOW";
-	if (c == LIGHTGOLDENRODYELLOW)return "LIGHTGOLDENRODYELLOW";
-	if (c == MAGENTA)return "MAGENTA";
-	if (c == TURQUOISE) return "TURQUOISE";
+	if ((c.ucRed == 255) && (c.ucGreen == 0)) return "RED";
+	if ((c.ucBlue == 255) && (c.ucRed == 0)) return "BLUE";
+	if ((c.ucBlue == 255) && (c.ucRed == 255)) return "WHITE";
+	if (((c.ucGreen == 255) && (c.ucRed == 0))) return "GREEN";
+	if ((c.ucGreen == 0) && (c.ucRed == 0) && (c.ucBlue == 0)) return "BLACK";
+	if ((c.ucGreen == 255) && (c.ucRed == 255) && (c.ucBlue == 0)) return "YELLOW";
 }
 
 //string shape::ConvertToString2(color cc)
@@ -79,4 +76,13 @@ void shape::ChngBorderWidth(int xx)
 {
 	ShpGfxInfo.BorderWdth = xx;
 }
+
+string shape::FigureName()
+{
+	return "Parent";
+}
+
+//void shape::Resize()
+//{
+//}
 

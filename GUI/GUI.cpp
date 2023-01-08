@@ -12,9 +12,9 @@ GUI::GUI()
 	wy = 5;
 
 
-	StatusBarHeight = 30;
-	ToolBarHeight = 30;
-	MenuIconWidth = 30;
+	StatusBarHeight = 50;
+	ToolBarHeight = 50;
+	MenuIconWidth = 80;
 
 	DrawColor = BLUE;	//default Drawing color
 	FillColor = GREEN;	//default Filling color
@@ -79,7 +79,7 @@ string GUI::GetSrting() const
 }
 
 //This function reads the position where the user clicks to determine the desired operation
-operationType GUI::GetUseroperation() const
+operationType GUI::GetUseroperation(Point& p) const
 {
 	int x, y;
 	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
@@ -109,15 +109,12 @@ operationType GUI::GetUseroperation() const
 			case ICON_CHNG_PEN_WID: return CHNG_PEN_WID;
 			case ICON_CHNG_PEN_CLR: return CHNG_DRAW_CLR;
 			case ICON_SAVE: return SAVE;
+			case ICON_resize: return RESIZE;
 			case ICON_brod: return actionch;
 			case ICON_DELETE: return DEL;
-			case ICON_MDEL: return MDelete;
+			case ICON_ZOOMin: return Zoom;
+			case ICON_ZOOMout: return Zoomm;
 			case ICON_EXIT: return EXIT;
-			case ICON_Send: return SEND_BACK;
-			case ICON_MSEL: return MSelect;
-			case ICON_COPY: return ccopy;
-			case ICON_CUT: return ccut;
-			case ICON_PASTE:  return cpaste;
 			case ICON_CHNG_FILL_CLR: return CHNG_FILL_CLR;
 			default: return EMPTY;	//A click on empty place in desgin toolbar
 			}
@@ -127,6 +124,27 @@ operationType GUI::GetUseroperation() const
 		if (y >= ToolBarHeight && y < height - StatusBarHeight)
 		{
 			return DRAWING_AREA;
+		}
+
+		else if (InterfaceMode == MODE_Resize)
+		{
+			if (y >= 0 && y < ToolBarHeight)
+			{
+				int ClickedItemOrder = (x / MenuIconWidth);
+				switch (ClickedItemOrder)
+				{
+				case ICON_QUARTER: return RESIZE_QUARTER;
+				case ICON_HALF: return RESIZE_HALF;
+				case ICON_DOUBLE: return RESIZE_DOUBLE;
+				case ICON_QUADRUPLE: return RESIZE_QUADRUPLE;
+				//case ICON_RESIZEBACK: return TO_DRAW;
+				}
+			}
+			if (y >= ToolBarHeight && y < height - StatusBarHeight)
+			{
+				GUI::screenToWorld;
+				return DRAWING_AREA;
+			}
 		}
 
 		//[3] User clicks on the status bar
@@ -202,22 +220,19 @@ void GUI::CreateDrawToolBar()
 	MenuIconImages[ICON_SQU] = "images\\MenuIcons\\Menu_Squ.jpg";
 	MenuIconImages[ICON_CIRC] = "images\\MenuIcons\\Menu_Circ.JPEG";
 	MenuIconImages[ICON_SEL]  = "images\\MenuIcons\\Menu_Sel.JPEG";
-	MenuIconImages[ICON_MSEL] = "images\\MenuIcons\\MulSelect.JPEG";
 	MenuIconImages[ICON_DELETE] = "images\\MenuIcons\\Menu_Del.JPEG";
 	MenuIconImages[ICON_brod] = "images\\MenuIcons\\pen.JPG";
 	MenuIconImages[ICON_LOAD] = "images\\MenuIcons\\Menu_Download.JPG";
 	MenuIconImages[ICON_SAVE] = "images\\MenuIcons\\Menu_Save.JPEG";
-	MenuIconImages[ICON_COPY] = "images\\MenuIcons\\copy.JPEG";
-	MenuIconImages[ICON_CUT] = "images\\MenuIcons\\cut.JPEG";
-	MenuIconImages[ICON_PASTE] = "images\\MenuIcons\\paste.JPEG";
 	MenuIconImages[ICON_EXIT] = "images\\MenuIcons\\Menu_Exit.JPEG";
 	MenuIconImages[ICON_OVAL] = "images\\MenuIcons\\Menu_OVAL.jpg";
 	MenuIconImages[ICON_PLAY] = "images\\MenuIcons\\Menu_Play.jpg";
-	MenuIconImages[ICON_MDEL] = "images\\MenuIcons\\Menu_MulDel.JPEG";
+	MenuIconImages[ICON_resize] = "images\\MenuIcons\\14.jpg";
+	MenuIconImages[ICON_ZOOMin] = "images\\MenuIcons\\15.jpg";
+	MenuIconImages[ICON_ZOOMout] = "images\\MenuIcons\\16.jpg";
 	MenuIconImages[ICON_CHNG_PEN_WID] = "images\\MenuIcons\\Menu_CHNG_PEN_WID.JPEG";
 	MenuIconImages[ICON_CHNG_PEN_CLR] = "images\\MenuIcons\\Menu_CHNG_PEN_CLR.JPEG";
-	MenuIconImages[ICON_CHNG_FILL_CLR] = "images\\MenuIcons\\Menu_CHNG_FILL_CLR.JPEG"; //Menu_Send.JPEG
-	MenuIconImages[ICON_Send] = "images\\MenuIcons\\Menu_Send.JPEG";
+	MenuIconImages[ICON_CHNG_FILL_CLR] = "images\\MenuIcons\\Menu_CHNG_FILL_CLR.JPEG";
 	//Draw menu icon one image at a time
 	for (int i = 0; i < DRAW_ICON_COUNT; i++)
 		pWind->DrawImage(MenuIconImages[i], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
@@ -232,6 +247,26 @@ void GUI::CreateDrawToolBar()
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
+void GUI::CreateResizeToolBar()
+{
+	ClearDrawArea();
+	ClearToolBar();
+		InterfaceMode = MODE_Resize;
+	string MenuIconImages[ICON_COUNT];
+	MenuIconImages[ICON_QUARTER] = "images\\MenuIcons\\Menu_Rect.JPEG"; /*"images\\MenuIcons\\resizeMenu\\quarter.JPEG";*/
+	MenuIconImages[ICON_HALF] = "images\\MenuIcons\\14.jpg"; /*"images\\MenuIcons\\resizeMenu\\half.JPEG";*/
+	MenuIconImages[ICON_DOUBLE] = "images\\MenuIcons\\resizeMenu\\double.JPEG";
+	MenuIconImages[ICON_QUADRUPLE] = "images\\MenuIcons\\resizeMenu\\quadruple.JPEG";
+	//MenuIconImages[ICON_RESIZEBACK] = "images\\MenuIcons\\return-color.jpg";
+
+	for (int i = 0; i < ICON_COUNT; i++)
+		pWind->DrawImage(MenuIconImages[i], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
+
+	//Draw a line under the toolbar
+	pWind->SetPen(RED, 3);
+	pWind->DrawLine(0, ToolBarHeight, width, ToolBarHeight);
+	///TODO: write code to create Play mode menu
+}
 
 void GUI::CreatePlayToolBar() 
 {
@@ -339,7 +374,31 @@ void GUI::setChngDrawClr(color c)
 	DrawColor = c;
 
 }
+
 //////////////////////////////////////////////////////////////////////////////////////////
+
+float GUI::zoomIn() const{
+	return scalingFactor*1.1f;
+}
+float GUI::zoomOut() const {
+	return scalingFactor * 0.9f;
+}
+
+void GUI::worldToScreen(Point& point)
+{
+	point.x = int(point.x * scalingFactor);
+	point.y = int(point.y * scalingFactor);
+}
+
+void GUI::screenToWorld(Point& point)
+{
+	point.x = int(point.x / scalingFactor);
+	point.y = int(point.y / scalingFactor);
+}
+
+
+
+
 
 int GUI::getCrntPenWidth() const		//get current pen width
 {

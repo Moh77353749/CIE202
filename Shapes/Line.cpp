@@ -34,29 +34,11 @@ void Line::Save(ofstream& OutFile)
 	}
 	else
 	{
-		fill = "NON-FILLED";
+		fill = "NO_FILL";
 	}
 
 	OutFile << "Line " << ID << " " << Corner1.x << " " << Corner1.y  << " " << colo << " " << fill << " " << " " << ShpGfxInfo.BorderWdth <<endl;
 	
-}
-
-shape* Line::Clone(Point c)
-{
-	Point NewC1, NewC2, midpoint;
-	midpoint.x = ((Corner1.x + Corner2.x) / 2);
-	midpoint.y = ((Corner1.y + Corner2.y) / 2);
-	int xdistance, ydistance;
-	xdistance = (midpoint.x - Corner1.x);
-	ydistance = (midpoint.y - Corner1.y);
-	NewC1.x = c.x - (xdistance);
-	NewC1.y = c.y - (ydistance);
-	NewC2.x = c.x + (xdistance);
-	NewC2.y = c.y + (ydistance);
-
-
-	shape* Temp = new Line(NewC1, NewC2, ShpGfxInfo);
-	return Temp;
 }
 
 void Line::Load(ifstream& Infile)
@@ -76,6 +58,20 @@ void Line::Load(ifstream& Infile)
 	}
 	ShpGfxInfo.isSelected = false;
 
+}
+int Line::Resize(double scale)
+{
+	int length = Corner2.x - Corner1.x;
+	if (Corner1.x + length * scale >= 1300 || Corner1.y + length * scale >= 650
+		|| scale * length <= 20)
+	{
+		return 1;
+	}
+	else
+	{
+		length = scale * length;
+		return 0;
+	}
 }
 
 

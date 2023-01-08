@@ -24,17 +24,13 @@ public:
 	void setshape(shape* sh);
 	void Addshape(shape* pFig); //Adds a new shape to the shapesList
 	void Draw(GUI* pUI) const;			//Draw the graph (draw all shapes)
-	void Getshape(Point) ; //Search for a shape given a point inside the shape
-	void GetMshape(Point);
-	void DelMshape();
+	shape* Getshape(Point) ; //Search for a shape given a point inside the shape
 	void Delshape();
-	void CopyShape();
-	void PasteShape();
 	void fill(color c);
 	void bordc(color c);
 	void bordw(int xx);
-	void send2b();//send to back
+
 	//void stickImage(string st);
 	void Save_shapes(ofstream& outfile);	//Save all shapes to a file
-	void load(ifstream& inputfile);	//Load all shapes from a file
+	 void load(ifstream& inputfile);	//Load all shapes from a file
 };

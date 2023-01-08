@@ -8,7 +8,7 @@ class addSqu : public operation
 public:
 	addSqu(controller *pCont);
 	virtual ~addSqu();
-
+	void zooom()override;
 	//Add Square to the controller
 	virtual void Execute();
 	void Undo() override;
