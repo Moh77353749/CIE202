@@ -8,9 +8,10 @@ class opAddRect: public operation
 public:
 	opAddRect(controller *pCont);
 	virtual ~opAddRect();
-	
+	// virtual bool checkInside(Point p);
 	//Add rectangle to the controller
 	virtual void Execute() ;
-	
+	void Undo() override;
+	void Redo()override;
 };
 

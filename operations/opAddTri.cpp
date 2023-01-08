@@ -1,7 +1,5 @@
 #include "opAddTri.h"
-
 #include "..\controller.h"
-
 #include "..\GUI\GUI.h"
 #include "..\shapes\Tri.h"
 
@@ -50,7 +48,7 @@ void opAddTri::Execute()
 
 
 	//Create a rectangle with the above parameters
-	Tri* T = new Tri(P1, P2, P3,TriGfxInfo);
+	Tri* T = new Tri(P1, P2, P3, TriGfxInfo);
 
 	//Get a pointer to the graph
 	Graph* pGr = pControl->getGraph();
@@ -58,4 +56,12 @@ void opAddTri::Execute()
 	//Add the rectangle to the list of shapes
 	pGr->Addshape(T);
 
+}
+
+void opAddTri::Undo()
+{
+}
+
+void opAddTri::Redo()
+{
 }

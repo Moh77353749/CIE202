@@ -4,7 +4,8 @@
 
 #include "..\CMUgraphicsLib\CMUgraphics.h"
 #include "..\Defs.h"
-
+#include "../CMUgraphicsLib/image.h"
+#include <windows.h>
 #include <string>
 using namespace std;
 
@@ -16,10 +17,12 @@ struct Point	//To be used for shapes points
 struct GfxInfo	//Graphical info common for all shapes (you may add more members)
 {
 	color DrawClr;	//Draw color of the shape
-	color FillClr;	//Fill color of the shape
+	color FillClr;
+	color BkGrndColor;	//Fill color of the shape
 	bool isFilled;	//shape Filled or not
 	int BorderWdth;	//Width of shape borders
-	bool isSelected;	//true if the shape is selected.
+	bool isSelected;
+		
 };
 
 
@@ -33,6 +36,7 @@ class GUI
 		MODE_PLAY	//Playing mode
 	};
 
+
 	enum DrawMenuIcon //The icons of the Draw menu (you should add more icons)
 	{
 		//Note: Icons are ordered here as they appear in menu
@@ -40,13 +44,26 @@ class GUI
 		ICON_LINE,		//Line icon in menu
 		ICON_TRI,		//Triangel Icon
 		ICON_RECT,		//Recangle icon in menu
-		ICON_CIRC,		//Circle icon in menu
+		ICON_SQU,
+		ICON_CIRC,	//Circle icon in menu
+		ICON_OVAL,
+		ICON_PLAY,
+		ICON_SEL, 
+		ICON_LOAD,
 		ICON_SAVE,
+		ICON_brod,
 		ICON_DELETE,
+		ICON_MDEL,
+		ICON_COPY,
+		ICON_CUT,
+		ICON_PASTE,
 		//TODO: Add more icons names here
-
+		ICON_Send,
+		ICON_MSEL,
+		ICON_CHNG_FILL_CLR,
+		ICON_CHNG_PEN_WID,
 		ICON_EXIT,		//Exit icon
-
+		ICON_CHNG_PEN_CLR,
 		DRAW_ICON_COUNT		//no. of menu icons ==> This should be the last line in this enum
 
 	};
@@ -55,6 +72,7 @@ class GUI
 	{
 		//Note: Icons are ordered here as they appear in menu
 		//If you want to change the menu icons order, change the order here
+		ICON_HIDE,
 
 		//TODO: Add more icons names here
 
@@ -84,7 +102,7 @@ class GUI
 	/// Add more members if needed
 
 
-
+protected:
 	window* pWind;
 
 public:
@@ -92,7 +110,9 @@ public:
 	GUI();
 
 	// Input Functions  ---------------------------
-	void GetPointClicked(int& x, int& y) const;//Get coordinate where user clicks
+	void GetPointClicked(int& x, int& y) const;
+	color GetcolorClicked(int x, int y) const;
+	//Get coordinate where user clicks
 	string GetSrting() const;	 //Returns a string entered by the user
 	operationType GetUseroperation() const; //Read the user click and map to an operation
 
@@ -100,8 +120,10 @@ public:
 	window* CreateWind(int, int, int, int) const; //creates the application window
 	void CreateDrawToolBar();	//creates Draw mode toolbar & menu
 	void CreatePlayToolBar();	//creates Play mode toolbar & menu
-	void CreateStatusBar() const;	//create the status bar
-
+	void CreateStatusBar() const;
+	void ClearToolBar() const;
+	void drawcolor();
+	//create the status bar
 	void ClearStatusBar() const;	//Clears the status bar
 	void ClearDrawArea() const;	//Clears the drawing area
 
@@ -109,15 +131,25 @@ public:
 	void Draw_Rect(Point P1, Point P2, GfxInfo RectGfxInfo) const;  //Draw a rectangle
 	void Draw_Line(Point P1, Point P2, GfxInfo LineGfxInfo) const; //Draw Line
 	void Draw_Tri(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo) const; //Draw Rectangle
-	
+	void DrawSqu(Point P1, Point P2, GfxInfo SquGfxInfo) const;
+	void Draw_Circ(Point P1, Point P2, GfxInfo CircGfxInfo)const;
+	void DrawOval(Point focal1, Point focal2, GfxInfo OvGfxInfo) const;
 	///Make similar functions for drawing all other shapes.
+	void setCrntDrawColor(color BLUE); // set drawing color of shapes
+	void setCrntPenWidth(int width);
+	color getCrntDrawColor() const;	//get current drwawing color
+	color getCrntFillColor() const;	//get current filling color
+	void setCrntFillColor(color RED);
+	void ChngBorderWidth(int xx);
+	color ChngDrawClr() const;
+	void setChngDrawClr(color c);
+	int getCrntPenWidth() const;
+	string ReadFileName(string msg);
+	//void Draw_Image(string name, Point P, int W, int H);
 
 	void PrintMessage(string msg) const;	//Print a message on Status bar
 
-	color getCrntDrawColor() const;	//get current drwawing color
-	color getCrntFillColor() const;	//get current filling color
-	int getCrntPenWidth() const;		//get current pen width
-	void SetSelected(bool s);
+	//void SetSelected(bool s);
 	
 	~GUI();
 };

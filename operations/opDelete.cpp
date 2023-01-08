@@ -1,15 +1,24 @@
-#include "OpDelete.h"
-#include "controller.h"
-#include "GUI/GUI.h"
+#include "opDelete.h"
+class Graph;
 
-OpDelete::OpDelete(controller* pControl) : operation(pControl)
+opDelete::opDelete(controller* pCont) : operation{ pCont }
 {
 
 }
 
-void OpDelete::Execute()
+void opDelete::Execute()
 {
-	GUI* P_out = pControl->GetUI();
-	GUI* P_in= pControl->GetUI();
-	
+	Graph* gi;
+	GUI* Po = pControl->GetUI();;
+	Po->PrintMessage("Delete feature is Active and will delete the selected shape");
+	gi = pControl->getGraph();
+	gi->Delshape();
+}
+
+void opDelete::Undo()
+{
+}
+
+void opDelete::Redo()
+{
 }
